@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import Image from "next/image";
-import CheckArrowSvg from "assets/icons/arrow-check.svg";
+import CheckArrowSvg from "../../assets/icons/arrow-check.svg";
 
 export type CheckboxVariantUnion = "circle" | "single";
 interface CheckboxProps

@@ -1,0 +1,48 @@
+{
+  "name": "nx-antd",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "dependencies": {
+    "@next/font": "13.1.6",
+    "@types/node": "18.11.18",
+    "@types/react": "18.0.27",
+    "@types/react-dom": "18.0.10",
+    "@types/styled-components": "^5.1.26",
+    "antd": "^5.1.7",
+    "eslint": "8.33.0",
+    "eslint-config-next": "13.1.6",
+    "less": "^4.1.3",
+    "next": "13.1.6",
+    "next-plugin-antd-less": "^1.8.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "styled-components": "^5.3.6",
+    "typescript": "4.9.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.21.0",
+    "@storybook/addon-actions": "^6.5.16",
+    "@storybook/addon-essentials": "^6.5.16",
+    "@storybook/addon-interactions": "^6.5.16",
+    "@storybook/addon-links": "^6.5.16",
+    "@storybook/builder-webpack5": "^6.5.16",
+    "@storybook/manager-webpack5": "^6.5.16",
+    "@storybook/react": "^6.5.16",
+    "@storybook/testing-library": "^0.0.13",
+    "@svgr/webpack": "^6.5.1",
+    "babel-loader": "^8.3.0",
+    "babel-plugin-import": "^1.13.6",
+    "css-filter-converter": "^1.0.109",
+    "eslint-plugin-storybook": "^0.6.11",
+    "sass": "^1.58.0",
+    "storybook-addon-next": "^1.7.2"
+  }
+}

@@ -1,10 +1,33 @@
 import React from "react";
-import { InputProps } from "./Input";
+import { InputMessageTypeUnion, InputProps } from "./Input";
 
-export type InputMessageTypeUnion = "info" | "pass" | "error" | null;
+export default function useInput({ msg }: InputProps) {
+  const [messageType, setMessageType] =
+    React.useState<InputMessageTypeUnion>(null);
+  const [messageText, setMessageText] = React.useState("");
 
-export default function useInput({ error }: InputProps) {
-  const [message, setMessage] = React.useState<InputMessageTypeUnion>(null);
+  const renderMessage = () => {
+    switch (msg?.type) {
+      case "info":
+        setMessageType("info");
+        break;
+      case "error":
+        setMessageType("error");
+        break;
+      case "pass":
+        setMessageType("pass");
+        break;
 
-  return { message };
+      default:
+        setMessageType(null);
+        break;
+    }
+    setMessageText(msg ? msg.title : "");
+  };
+
+  React.useEffect(() => {
+    renderMessage();
+  }, [msg]);
+
+  return { messageType, messageText };
 }

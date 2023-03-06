@@ -5,6 +5,8 @@ export default function useInput({ msg }: InputProps) {
   const [messageType, setMessageType] =
     React.useState<InputMessageTypeUnion>(null);
   const [messageText, setMessageText] = React.useState("");
+  const [visibleInput, setVisibleInput] = React.useState<boolean>(false);
+  const togglePasswordView = () => setVisibleInput(!visibleInput);
 
   const renderMessage = () => {
     switch (msg?.type) {
@@ -29,5 +31,5 @@ export default function useInput({ msg }: InputProps) {
     renderMessage();
   }, [msg]);
 
-  return { messageType, messageText };
+  return { messageType, messageText, visibleInput, togglePasswordView };
 }

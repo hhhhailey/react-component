@@ -6,19 +6,24 @@ import { Button } from "antd";
 import { Checkbox, Input, View } from "@/components";
 import React from "react";
 import styled from "styled-components";
+import BottomSheet from "@/components/bottom-sheet/BottomSheet";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const [isChecked, hasIsChecked] = React.useState(true);
+  const [openBottomSheet, setOpenBottomSheet] = React.useState(false);
+  const closeBottomSheet = () => {};
   return (
-    <div>
+    <View direction={"column"} padding={["p-4"]} block>
       <Button type={"primary"}>Button</Button>
+      <Button onClick={() => setOpenBottomSheet(true)}>바텀시트</Button>
       <Checkbox
         checked={isChecked}
         onChange={() => hasIsChecked((prev) => !prev)}
       />
-      <View direction={"column"} spacing={10}>
+      <View direction={"column"} spacing={30}>
+        <Input label={"아이디"} />
         <Input
           label={"아이디"}
           msg={{ type: "error", title: "아이디가 올바르지 않습니다요." }}
@@ -26,8 +31,8 @@ export default function Home() {
         <Input.Password
           label={"비밀번호"}
           msg={{
-            type: "error",
-            title: "올바른 비밀번호가 아니에요",
+            type: "info",
+            title: "비밀번호를 아래와 같이 입력해주세요.",
             desc: (
               <StyledMessageDetail>
                 <li>영문 + 숫자 + 특수문자 9자리~20자리</li>
@@ -37,7 +42,37 @@ export default function Home() {
           }}
         />
       </View>
-    </div>
+      <BottomSheet
+        open={openBottomSheet}
+        onDismiss={() => setOpenBottomSheet(false)}
+      >
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+      </BottomSheet>
+    </View>
   );
 }
 

@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import Image from "next/image";
-import CheckArrowSvg from "../../assets/icons/arrow-check.svg";
+import CheckArrowIcon from "../../assets/icons/arrow-check.svg";
 
 export type CheckboxVariantUnion = "circle" | "single";
 interface CheckboxProps
@@ -13,7 +13,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({ variant, ...props }) => {
   return (
     <StyledCheckbox checked={props.checked} variant={variant}>
       <input {...props} type="checkbox" hidden />
-      <CheckArrowSvg />
+      <CheckArrowIcon />
     </StyledCheckbox>
   );
 };
@@ -55,6 +55,7 @@ const StyledCheckbox = styled.label<{
   height: 25px;
   border-radius: 50%;
   cursor: pointer;
+  user-select: none;
 
   &:disabled {
     background-color: #cbcedc;

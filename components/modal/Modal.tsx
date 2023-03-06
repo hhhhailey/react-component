@@ -2,7 +2,6 @@ import React from "react";
 import styled, { css, keyframes } from "styled-components";
 import { useModal } from "./useModal";
 import CloseIcon from "../../assets/icons/close.svg";
-import { debounce } from "lodash";
 
 export interface ModalProps {
   header?: React.ReactNode;
@@ -24,50 +23,26 @@ export interface ModalContextProps {
 export const ModalContext = React.createContext<ModalContextProps | null>(null);
 
 const BottomSheet = ({ children, ...props }: ModalProps) => {
-  const [screenSize, setScreenSize] = React.useState(() => ({
-    width: typeof window !== "undefined" ? window.innerHeight : 0,
-    height: typeof window !== "undefined" ? window.innerHeight : 0,
-  }));
-  const [headerHeight, setHeaderHeight] = React.useState(0);
-  const [footerHeight, setFooterHeight] = React.useState(0);
-
-  const rootRef = React.useRef(null);
-  const overlayRef = React.useRef(null);
-  const containerRef = React.useRef(null);
-  const scrollRef = React.useRef(null);
   const headerRef = React.useRef<any>(null);
-  const contentRef = React.useRef(null);
   const footerRef = React.useRef<any>(null);
-
-  const handleResize = debounce(() => {
-    setScreenSize({
-      width: window.innerWidth,
-      height: window.innerHeight,
-    });
-  }, 1000);
-
-  React.useLayoutEffect(() => {
-    if (props.open) {
-      setScreenSize({ ...screenSize, height: window.innerHeight });
-      setHeaderHeight(headerRef.current?.clientHeight ?? 0);
-      setFooterHeight(footerRef.current?.clientHeight ?? 0);
-    }
-
-    window.addEventListener("resize", handleResize);
-    return () => window.addEventListener("resize", handleResize);
-  }, [props.open, screenSize.width]);
-
-  const { unmount, toggleOverlay, closeModal } = useModal(props);
+  const {
+    unmount,
+    toggleOverlay,
+    closeModal,
+    footerHeight,
+    headerHeight,
+    size,
+  } = useModal({
+    ...props,
+    headerRef,
+    footerRef,
+  });
 
   return (
     props.open && (
-      <StyledWrap ref={rootRef}>
-        <StyledOverlay
-          ref={overlayRef}
-          onClick={toggleOverlay}
-          unmount={unmount}
-        />
-        <StyledBottomSheetContainer ref={containerRef}>
+      <StyledWrap>
+        <StyledOverlay onClick={toggleOverlay} unmount={unmount} />
+        <StyledBottomSheetContainer>
           <StyledBottomSheet unmount={unmount}>
             {props.header && (
               <StyledHeader ref={headerRef}>{props.header}</StyledHeader>
@@ -76,12 +51,11 @@ const BottomSheet = ({ children, ...props }: ModalProps) => {
               <CloseIcon onClick={closeModal} className="icon-close" />
             )}
             <StyledScroll
-              ref={scrollRef}
-              maxHeight={screenSize.height}
+              maxHeight={size.height!}
               headerHeight={headerHeight}
               footerHeight={footerHeight}
             >
-              <StyledContent ref={contentRef}>{children}</StyledContent>
+              <StyledContent>{children}</StyledContent>
             </StyledScroll>
             {props.footer && (
               <StyledFooter ref={footerRef}> {props.footer}</StyledFooter>

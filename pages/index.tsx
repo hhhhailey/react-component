@@ -46,57 +46,9 @@ export default function Home() {
         open={openBottomSheet}
         onDismiss={() => setOpenBottomSheet(false)}
         header={"약관동의"}
+        footer={<Button>확인</Button>}
+        h={300}
       >
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>안녕하세요?</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
-        <div>dkfjdkfj</div>
         <div>안녕하시요</div>
       </BottomSheet>
     </View>

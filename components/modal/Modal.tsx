@@ -12,7 +12,6 @@ export interface ModalProps {
   onDismiss?: VoidFunction;
   closeable?: boolean;
 
-  w?: string | number;
   h?: string | number;
 }
 
@@ -22,7 +21,7 @@ export interface ModalContextProps {
 
 export const ModalContext = React.createContext<ModalContextProps | null>(null);
 
-const BottomSheet = ({ children, ...props }: ModalProps) => {
+const Modal: React.FC<ModalProps> = ({ children, ...props }) => {
   const headerRef = React.useRef<any>(null);
   const footerRef = React.useRef<any>(null);
   const {
@@ -42,8 +41,8 @@ const BottomSheet = ({ children, ...props }: ModalProps) => {
     props.open && (
       <StyledWrap>
         <StyledOverlay onClick={toggleOverlay} unmount={unmount} />
-        <StyledBottomSheetContainer>
-          <StyledBottomSheet unmount={unmount}>
+        <StyledModalContainer h={props.h}>
+          <StyledModal unmount={unmount}>
             {props.header && (
               <StyledHeader ref={headerRef}>{props.header}</StyledHeader>
             )}
@@ -60,16 +59,16 @@ const BottomSheet = ({ children, ...props }: ModalProps) => {
             {props.footer && (
               <StyledFooter ref={footerRef}> {props.footer}</StyledFooter>
             )}
-          </StyledBottomSheet>
-        </StyledBottomSheetContainer>
+          </StyledModal>
+        </StyledModalContainer>
       </StyledWrap>
     )
   );
 };
 
-export default BottomSheet;
+export default Modal;
 
-BottomSheet.defaultProps = {
+Modal.defaultProps = {
   open: false,
   closeable: true,
 };
@@ -100,18 +99,34 @@ const StyledOverlay = styled.div<{ unmount?: boolean }>`
   ${(p) => (p.unmount ? activeFadeIn : activeFadeOut)}
 `;
 
-const StyledBottomSheetContainer = styled.div`
+const StyledModalContainer = styled.div<{ h?: string | number }>`
   z-index: 150;
   position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
+
+  height: ${(p) => (typeof p.h === "number" ? p.h + "px" : p.h)};
+`;
+
+const StyledModal = styled.div<{ unmount?: boolean }>`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding: 0 16px 16px 16px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  background-color: white;
+
+  transform-origin: bottom;
+  ${(p) => (p.unmount ? activeClose : activeOpen)}
 `;
 
 const StyledHeader = styled.div`
   display: flex;
   align-items: center;
-  padding: 16px 24px;
   height: 64px;
   font-size: 20px;
   font-weight: 700;
@@ -122,24 +137,17 @@ const StyledScroll = styled.div<{
   headerHeight: number;
   footerHeight: number;
 }>`
+  flex: 1;
   max-height: ${(p) => p.maxHeight - p.headerHeight - p.footerHeight}px;
   overflow-y: scroll;
   -webkit-overflow-scrolling: auto;
 `;
 
-const StyledContent = styled.div``;
-
-const StyledBottomSheet = styled.div<{ unmount?: boolean }>`
+const StyledContent = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-  height: 100%;
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
-  background-color: white;
-  transform-origin: bottom;
-  ${(p) => (p.unmount ? activeClose : activeOpen)}
+  align-items: flex-start;
+  justify-content: flex-start;
 `;
 
 const StyledFooter = styled.div``;

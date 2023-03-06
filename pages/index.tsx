@@ -6,7 +6,7 @@ import { Button } from "antd";
 import { Checkbox, Input, View } from "@/components";
 import React from "react";
 import styled from "styled-components";
-import BottomSheet from "@/components/bottom-sheet/BottomSheet";
+import BottomSheet from "@/components/modal/Modal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -45,11 +45,13 @@ export default function Home() {
       <BottomSheet
         open={openBottomSheet}
         onDismiss={() => setOpenBottomSheet(false)}
+        header={"약관동의"}
       >
         <div>dkfjdkfj</div>
         <div>dkfjdkfj</div>
         <div>dkfjdkfj</div>
         <div>dkfjdkfj</div>
+        <div>안녕하세요?</div>
         <div>dkfjdkfj</div>
         <div>dkfjdkfj</div>
         <div>dkfjdkfj</div>
@@ -71,6 +73,31 @@ export default function Home() {
         <div>dkfjdkfj</div>
         <div>dkfjdkfj</div>
         <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>dkfjdkfj</div>
+        <div>안녕하시요</div>
       </BottomSheet>
     </View>
   );

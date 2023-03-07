@@ -2,19 +2,19 @@ import React, { RefObject } from "react";
 import { Size, useWindowSize } from "@/hooks/useWindowSize";
 import { debounce } from "lodash";
 
-export interface UseModalProps {
+export interface UseBottomSheetProps {
   open?: boolean; // 모달 활성화, 비활성화 여부
   onDismiss?: VoidFunction; // 모달 닫기 기능 함수
   headerRef?: any;
   footerRef?: any;
 }
 
-export const useModal = ({
+export const useBottomSheet = ({
   open,
   onDismiss,
   headerRef,
   footerRef,
-}: UseModalProps) => {
+}: UseBottomSheetProps) => {
   const size: Size = useWindowSize();
   const [headerHeight, setHeaderHeight] = React.useState(0);
   const [footerHeight, setFooterHeight] = React.useState(0);
@@ -36,7 +36,7 @@ export const useModal = ({
     }, 300);
   };
 
-  const closeModal = () => {
+  const closeBottomSheet = () => {
     setUnmount(true);
     setTimeout(() => {
       setUnmount(false);
@@ -47,7 +47,7 @@ export const useModal = ({
   return {
     unmount,
     toggleOverlay,
-    closeModal,
+    closeBottomSheet,
     headerHeight,
     footerHeight,
     size,

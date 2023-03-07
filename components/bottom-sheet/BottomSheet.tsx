@@ -1,9 +1,9 @@
 import React from "react";
 import styled, { css, keyframes } from "styled-components";
-import { useModal } from "./useModal";
+import { useBottomSheet } from "./useBottomSheet";
 import CloseIcon from "../../assets/icons/close.svg";
 
-export interface ModalProps {
+export interface BottomSheetProps {
   header?: React.ReactNode;
   children: React.ReactNode;
   footer?: React.ReactNode;
@@ -15,40 +15,41 @@ export interface ModalProps {
   h?: string | number;
 }
 
-export interface ModalContextProps {
-  closeModal: VoidFunction;
+export interface BottomSheetContextProps {
+  closeBottomSheet: VoidFunction;
 }
 
-export const ModalContext = React.createContext<ModalContextProps | null>(null);
+export const BottomSheetContext =
+  React.createContext<BottomSheetContextProps | null>(null);
 
-const Modal: React.FC<ModalProps> = ({ children, ...props }) => {
+const BottomSheet: React.FC<BottomSheetProps> = ({ children, ...props }) => {
   const headerRef = React.useRef<any>(null);
   const footerRef = React.useRef<any>(null);
   const {
     unmount,
     toggleOverlay,
-    closeModal,
+    closeBottomSheet,
     footerHeight,
     headerHeight,
     size,
-  } = useModal({
+  } = useBottomSheet({
     ...props,
     headerRef,
     footerRef,
   });
 
   return (
-    <ModalContext.Provider value={{ closeModal }}>
+    <BottomSheetContext.Provider value={{ closeBottomSheet }}>
       {props.open && (
         <StyledWrap>
           <StyledOverlay onClick={toggleOverlay} unmount={unmount} />
-          <StyledModalContainer h={props.h}>
-            <StyledModal unmount={unmount}>
+          <StyledBottomSheetContainer h={props.h}>
+            <StyledBottomSheet unmount={unmount}>
               {props.header && (
                 <StyledHeader ref={headerRef}>{props.header}</StyledHeader>
               )}
               {props.closeable && (
-                <CloseIcon onClick={closeModal} className="icon-close" />
+                <CloseIcon onClick={closeBottomSheet} className="icon-close" />
               )}
               <StyledScroll
                 maxHeight={size.height!}
@@ -60,17 +61,17 @@ const Modal: React.FC<ModalProps> = ({ children, ...props }) => {
               {props.footer && (
                 <StyledFooter ref={footerRef}> {props.footer}</StyledFooter>
               )}
-            </StyledModal>
-          </StyledModalContainer>
+            </StyledBottomSheet>
+          </StyledBottomSheetContainer>
         </StyledWrap>
       )}
-    </ModalContext.Provider>
+    </BottomSheetContext.Provider>
   );
 };
 
-export default Modal;
+export default BottomSheet;
 
-Modal.defaultProps = {
+BottomSheet.defaultProps = {
   open: false,
   closeable: true,
 };
@@ -95,7 +96,7 @@ const StyledOverlay = styled.div<{ unmount?: boolean }>`
   ${(p) => (p.unmount ? activeFadeIn : activeFadeOut)}
 `;
 
-const StyledModalContainer = styled.div<{ h?: string | number }>`
+const StyledBottomSheetContainer = styled.div<{ h?: string | number }>`
   z-index: 150;
   position: fixed;
   left: 0;
@@ -104,7 +105,7 @@ const StyledModalContainer = styled.div<{ h?: string | number }>`
   height: ${(p) => (typeof p.h === "number" ? p.h + "px" : p.h)};
 `;
 
-const StyledModal = styled.div<{ unmount?: boolean }>`
+const StyledBottomSheet = styled.div<{ unmount?: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;

@@ -6,7 +6,7 @@ import { Button } from "antd";
 import { Checkbox, Input, View } from "@/components";
 import React from "react";
 import styled from "styled-components";
-import BottomSheet from "@/components/modal/Modal";
+import BottomSheet from "@/components/bottom-sheet/BottomSheet";
 
 const inter = Inter({ subsets: ["latin"] });
 

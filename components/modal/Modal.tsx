@@ -38,31 +38,33 @@ const Modal: React.FC<ModalProps> = ({ children, ...props }) => {
   });
 
   return (
-    props.open && (
-      <StyledWrap>
-        <StyledOverlay onClick={toggleOverlay} unmount={unmount} />
-        <StyledModalContainer h={props.h}>
-          <StyledModal unmount={unmount}>
-            {props.header && (
-              <StyledHeader ref={headerRef}>{props.header}</StyledHeader>
-            )}
-            {props.closeable && (
-              <CloseIcon onClick={closeModal} className="icon-close" />
-            )}
-            <StyledScroll
-              maxHeight={size.height!}
-              headerHeight={headerHeight}
-              footerHeight={footerHeight}
-            >
-              <StyledContent>{children}</StyledContent>
-            </StyledScroll>
-            {props.footer && (
-              <StyledFooter ref={footerRef}> {props.footer}</StyledFooter>
-            )}
-          </StyledModal>
-        </StyledModalContainer>
-      </StyledWrap>
-    )
+    <ModalContext.Provider value={{ closeModal }}>
+      {props.open && (
+        <StyledWrap>
+          <StyledOverlay onClick={toggleOverlay} unmount={unmount} />
+          <StyledModalContainer h={props.h}>
+            <StyledModal unmount={unmount}>
+              {props.header && (
+                <StyledHeader ref={headerRef}>{props.header}</StyledHeader>
+              )}
+              {props.closeable && (
+                <CloseIcon onClick={closeModal} className="icon-close" />
+              )}
+              <StyledScroll
+                maxHeight={size.height!}
+                headerHeight={headerHeight}
+                footerHeight={footerHeight}
+              >
+                <StyledContent>{children}</StyledContent>
+              </StyledScroll>
+              {props.footer && (
+                <StyledFooter ref={footerRef}> {props.footer}</StyledFooter>
+              )}
+            </StyledModal>
+          </StyledModalContainer>
+        </StyledWrap>
+      )}
+    </ModalContext.Provider>
   );
 };
 
@@ -82,6 +84,7 @@ const StyledWrap = styled.div`
 `;
 
 const StyledOverlay = styled.div<{ unmount?: boolean }>`
+  opacity: 1;
   z-index: 100;
   position: fixed;
   top: 0;
@@ -89,13 +92,6 @@ const StyledOverlay = styled.div<{ unmount?: boolean }>`
   bottom: 0;
   right: 0;
   background: rgba(64, 74, 101, 0.6);
-  opacity: 1;
-  overscroll-behavior: none;
-  touch-action: none;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none;
-  will-change: height;
   ${(p) => (p.unmount ? activeFadeIn : activeFadeOut)}
 `;
 
@@ -105,7 +101,6 @@ const StyledModalContainer = styled.div<{ h?: string | number }>`
   left: 0;
   bottom: 0;
   width: 100%;
-
   height: ${(p) => (typeof p.h === "number" ? p.h + "px" : p.h)};
 `;
 
@@ -115,7 +110,6 @@ const StyledModal = styled.div<{ unmount?: boolean }>`
   justify-content: space-between;
   width: 100%;
   height: 100%;
-  padding: 0 16px 16px 16px;
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
   background-color: white;
@@ -130,6 +124,7 @@ const StyledHeader = styled.div`
   height: 64px;
   font-size: 20px;
   font-weight: 700;
+  padding: 0 16px;
 `;
 
 const StyledScroll = styled.div<{
@@ -137,6 +132,7 @@ const StyledScroll = styled.div<{
   headerHeight: number;
   footerHeight: number;
 }>`
+  padding: 0 16px;
   flex: 1;
   max-height: ${(p) => p.maxHeight - p.headerHeight - p.footerHeight}px;
   overflow-y: scroll;
@@ -150,7 +146,9 @@ const StyledContent = styled.div`
   justify-content: flex-start;
 `;
 
-const StyledFooter = styled.div``;
+const StyledFooter = styled.div`
+  padding: 16px;
+`;
 
 const AnimUp = keyframes`
   0% { transform: translateY(100%) } 100% { transform:translateY(0px) }

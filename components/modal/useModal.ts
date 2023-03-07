@@ -26,6 +26,7 @@ export const useModal = ({
       setFooterHeight(footerRef.current?.clientHeight ?? 0);
     }
   }, [open, size.width]);
+
   const toggleOverlay = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     setUnmount(true);

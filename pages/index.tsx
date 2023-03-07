@@ -47,8 +47,67 @@ export default function Home() {
         onDismiss={() => setOpenBottomSheet(false)}
         header={"약관동의"}
         footer={<Button>확인</Button>}
-        h={300}
       >
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
+        <div>안녕하시요</div>
         <div>안녕하시요</div>
       </BottomSheet>
     </View>

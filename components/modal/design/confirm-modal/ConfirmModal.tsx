@@ -13,29 +13,25 @@ const ConfirmModal: React.FC<ModalProps> = ({ ...props }) => {
   };
 
   return (
-    <>
-      {props.open && (
-        <StyledConfirmModal>
-          <StyledHeader>{props.header}</StyledHeader>
-          {props.closeable && (
-            <CloseIcon className={"icon-close"} onClick={closeModal} />
-          )}
-          <div>this is confirm modal</div>
-          <StyledFooter>
-            {props.onClose && props.hasBtnCancel && (
-              <Button onClick={closeModal}>취소</Button>
-            )}
-            {props.onConfirm && props.hasBtnConfirm && (
-              <Button onClick={submit}>확인</Button>
-            )}
-            {props.onSubmit && props.hasBtnSubmit && (
-              <Button onClick={submit}>등록</Button>
-            )}
-            {props.footer && <StyledFooter>{props.footer}</StyledFooter>}
-          </StyledFooter>
-        </StyledConfirmModal>
+    <StyledConfirmModal>
+      <StyledHeader>{props.header}</StyledHeader>
+      {props.closeable && (
+        <CloseIcon className={"icon-close"} onClick={closeModal} />
       )}
-    </>
+      <div>this is confirm modal</div>
+      <StyledFooter>
+        {props.onClose && props.hasBtnCancel && (
+          <Button onClick={closeModal}>취소</Button>
+        )}
+        {props.onConfirm && props.hasBtnConfirm && (
+          <Button onClick={submit}>확인</Button>
+        )}
+        {props.onSubmit && props.hasBtnSubmit && (
+          <Button onClick={submit}>등록</Button>
+        )}
+        {props.footer && <StyledFooter>{props.footer}</StyledFooter>}
+      </StyledFooter>
+    </StyledConfirmModal>
   );
 };
 

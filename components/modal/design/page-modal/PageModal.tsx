@@ -11,11 +11,7 @@ export interface PageModalProps extends ModalProps {
 export default function PageModal({ ...props }: PageModalProps) {
   const { pageIndex } = React.useContext(ModalsStateContext);
 
-  return (
-    <>
-      props.open && <StyledPageModal>{props.pages[pageIndex]}</StyledPageModal>
-    </>
-  );
+  return <StyledPageModal>{props.pages[pageIndex]}</StyledPageModal>;
 }
 
 const StyledPageModal = styled.div``;

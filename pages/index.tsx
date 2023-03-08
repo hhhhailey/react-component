@@ -73,7 +73,7 @@ export default function Home() {
       footer: <div>footer</div>,
       hasBtnSubmit: true,
       onSubmit: () => {
-        console.log("비지니스로직");
+        console.log("onSubmit 비지니스 로직");
       },
     });
   };

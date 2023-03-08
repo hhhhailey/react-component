@@ -11,3 +11,8 @@ export interface ModalProps {
   onSuccess?: VoidFunction;
   onConfirm?: VoidFunction;
 }
+
+export interface ModalsStateContextProps {
+  curPage?: number;
+  changePage?: any;
+}

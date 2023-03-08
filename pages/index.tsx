@@ -11,14 +11,61 @@ import useModal from "@/components/modal/useModals";
 import useModals from "@/components/modal/useModals";
 import MyModal from "@/components/modal/design/confirm-modal/ConfirmModal";
 import PageModal from "@/components/modal/design/page-modal/PageModal";
+import { ModalsStateContext } from "@/components/modal/context";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const [isChecked, hasIsChecked] = React.useState(true);
   const [openBottomSheet, setOpenBottomSheet] = React.useState(false);
+  const context = React.useContext(ModalsStateContext);
+
   const closeBottomSheet = () => {};
   const { openModal } = useModals();
+  const renderPageModal1 = (
+    <div>
+      page modal 1
+      <Button
+        onClick={() => {
+          console.log("dd");
+          context?.changePage(1);
+        }}
+      >
+        next
+      </Button>
+    </div>
+  );
+  const renderPageModal2 = (
+    <div>
+      page modal 2{" "}
+      <Button
+        onClick={() => {
+          context?.changePage(2);
+        }}
+      >
+        next
+      </Button>
+    </div>
+  );
+  const renderPageModal3 = (
+    <div>
+      page modal 3
+      <Button
+        onClick={() => {
+          context?.changePage(1);
+        }}
+      >
+        back
+      </Button>
+      <Button
+        onClick={() => {
+          context?.changePage(0);
+        }}
+      >
+        first
+      </Button>
+    </div>
+  );
   const openMainModal = () => {
     openModal(MyModal, {
       header: "header",
@@ -27,9 +74,11 @@ export default function Home() {
       footer: <div>footer</div>,
     });
   };
+
   const openPageModal = () => {
     openModal(PageModal, {
       header: <Button>Back</Button>,
+      pages: [renderPageModal1, renderPageModal2, renderPageModal3],
     });
   };
   return (

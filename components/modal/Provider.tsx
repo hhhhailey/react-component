@@ -1,9 +1,9 @@
 import React, { ComponentProps, FunctionComponent } from "react";
 import { ModalProps } from "../@types/modal";
 import {
+  ModalsOpenedContext,
   ModalsStateContext,
   ModalsDispatchContext,
-  ModalContext,
 } from "./context";
 
 export interface ModalProviderProps {
@@ -14,6 +14,14 @@ export default function ModalProvider({ children }: ModalProviderProps) {
   // 열린 모달 상태 관리
   const [openedModals, setOpenedModals] = React.useState<any[]>([]);
   const [curPage, setCurPage] = React.useState<number>(0);
+
+  React.useEffect(() => {
+    setCurPage(curPage || 0);
+  }, [curPage]);
+
+  const changePage = (page: number) => {
+    setCurPage(page);
+  };
 
   const open = React.useCallback(
     <T extends FunctionComponent<ModalProps>>(
@@ -39,12 +47,12 @@ export default function ModalProvider({ children }: ModalProviderProps) {
   const dispatch: any = React.useMemo(() => ({ open, close }), [open, close]);
 
   return (
-    <ModalsStateContext.Provider value={openedModals}>
-      <ModalsDispatchContext.Provider value={dispatch}>
-        <ModalContext.Provider value={{ curPage }}>
+    <ModalsDispatchContext.Provider value={dispatch}>
+      <ModalsOpenedContext.Provider value={openedModals}>
+        <ModalsStateContext.Provider value={{ curPage, changePage }}>
           {children}
-        </ModalContext.Provider>
-      </ModalsDispatchContext.Provider>
-    </ModalsStateContext.Provider>
+        </ModalsStateContext.Provider>
+      </ModalsOpenedContext.Provider>
+    </ModalsDispatchContext.Provider>
   );
 }

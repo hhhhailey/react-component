@@ -1,18 +1,13 @@
-import { ComponentProps, createContext, FunctionComponent } from "react";
-import { ModalProps } from "../@types/modal";
-import { UseModalsProps } from "./useModals";
+import { createContext, FunctionComponent } from "react";
+import { ModalProps, ModalsStateContextProps } from "../@types/modal";
 
 interface OpenedModalProps {
   Component: FunctionComponent<ModalProps>;
   props: any;
 }
 
-interface ModalContextProps {
-  curPage?: number;
-}
-
 // 현재 open된 modal들을 나타냄.
-export const ModalsStateContext = createContext<OpenedModalProps[]>([]);
+export const ModalsOpenedContext = createContext<OpenedModalProps[]>([]);
 
 // modal을 열고 닫는 함수
 export const ModalsDispatchContext = createContext({
@@ -20,5 +15,10 @@ export const ModalsDispatchContext = createContext({
   close: (Component: any) => {},
 });
 
-// modal context props
-export const ModalContext = createContext<ModalContextProps | null>(null);
+// modal state 다루는 컨텍스트
+export const ModalsStateContext = createContext<ModalsStateContextProps | null>(
+  {
+    curPage: 0,
+    changePage: () => {},
+  }
+);

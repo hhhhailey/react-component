@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { ModalsDispatchContext, ModalsStateContext } from "./context";
+import { ModalsDispatchContext, ModalsOpenedContext } from "./context";
 
 export default function Modals() {
-  const openedModals = React.useContext(ModalsStateContext);
+  const openedModals = React.useContext(ModalsOpenedContext);
   const { close } = React.useContext(ModalsDispatchContext);
 
   return (

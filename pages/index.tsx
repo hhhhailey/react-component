@@ -7,7 +7,6 @@ import { Checkbox, Input, Modal, View } from "@/components";
 import React from "react";
 import styled from "styled-components";
 import BottomSheet from "@/components/bottom-sheet/BottomSheet";
-import useModal from "@/components/modal/useModals";
 import useModals from "@/components/modal/useModals";
 import MyModal from "@/components/modal/design/confirm-modal/ConfirmModal";
 import PageModal from "@/components/modal/design/page-modal/PageModal";
@@ -64,12 +63,18 @@ export default function Home() {
       </Button>
     </div>
   );
+
   const openMainModal = () => {
     openModal(MyModal, {
       header: "header",
       w: "40%",
       h: 200,
+      closeable: true,
       footer: <div>footer</div>,
+      hasBtnSubmit: true,
+      onSubmit: () => {
+        console.log("비지니스로직");
+      },
     });
   };
 
@@ -113,6 +118,7 @@ export default function Home() {
         open={openBottomSheet}
         onDismiss={() => setOpenBottomSheet(false)}
         header={"약관동의"}
+        h={300}
         footer={<Button>확인</Button>}
       >
         <div>안녕하시요</div>

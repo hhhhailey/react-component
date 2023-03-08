@@ -2,14 +2,18 @@ export interface ModalProps {
   open?: boolean;
   header?: React.ReactNode;
   footer?: React.ReactNode;
+  closeable?: boolean;
 
   w?: string | number;
   h?: string | number;
 
   onClose?: VoidFunction;
-  onCancel?: VoidFunction;
-  onSuccess?: VoidFunction;
+  onSubmit?: VoidFunction;
   onConfirm?: VoidFunction;
+
+  hasBtnCancel?: boolean;
+  hasBtnSubmit?: boolean;
+  hasBtnConfirm?: boolean;
 }
 
 export interface ModalsStateContextProps {
@@ -19,5 +23,5 @@ export interface ModalsStateContextProps {
 
 export interface OpenedModalProps {
   Component: FunctionComponent<ModalProps>;
-  props: any;
+  props: ModalProps;
 }

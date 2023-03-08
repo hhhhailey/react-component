@@ -10,16 +10,29 @@ export default function Modals() {
     <>
       {openedModals.map((modal, index) => {
         const { Component, props } = modal;
-        const onClose = () => {
+        const { onSubmit, ...rest } = props;
+
+        const closeModal = () => {
           close(Component);
+        };
+
+        const handleSubmit = async () => {
+          if (typeof onSubmit === "function") {
+            await onSubmit();
+          }
+          closeModal();
         };
 
         return (
           <StyledWrap key={index}>
-            <StyledOverlay onClick={onClose} />
+            <StyledOverlay onClick={closeModal} />
 
             <StyledModal w={props.w} h={props.h}>
-              <Component {...props} onClose={onClose} />
+              <Component
+                {...rest}
+                onClose={closeModal}
+                onSubmit={handleSubmit}
+              />
             </StyledModal>
           </StyledWrap>
         );

@@ -18,17 +18,15 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   const [isChecked, hasIsChecked] = React.useState(true);
   const [openBottomSheet, setOpenBottomSheet] = React.useState(false);
-  const context = React.useContext(ModalsStateContext);
 
   const closeBottomSheet = () => {};
-  const { openModal } = useModals();
+  const { openModal, setPageIndex } = useModals();
   const renderPageModal1 = (
     <div>
       page modal 1
       <Button
         onClick={() => {
-          console.log("dd");
-          context?.changePage(1);
+          setPageIndex(1);
         }}
       >
         next
@@ -40,7 +38,7 @@ export default function Home() {
       page modal 2{" "}
       <Button
         onClick={() => {
-          context?.changePage(2);
+          setPageIndex(2);
         }}
       >
         next
@@ -52,14 +50,14 @@ export default function Home() {
       page modal 3
       <Button
         onClick={() => {
-          context?.changePage(1);
+          setPageIndex(1);
         }}
       >
         back
       </Button>
       <Button
         onClick={() => {
-          context?.changePage(0);
+          setPageIndex(0);
         }}
       >
         first

@@ -13,15 +13,7 @@ export interface ModalProviderProps {
 export default function ModalProvider({ children }: ModalProviderProps) {
   // 열린 모달 상태 관리
   const [openedModals, setOpenedModals] = React.useState<any[]>([]);
-  const [curPage, setCurPage] = React.useState<number>(0);
-
-  React.useEffect(() => {
-    setCurPage(curPage || 0);
-  }, [curPage]);
-
-  const changePage = (page: number) => {
-    setCurPage(page);
-  };
+  const [pageIndex, setPageIndex] = React.useState<number>(0);
 
   const open = React.useCallback(
     <T extends FunctionComponent<ModalProps>>(
@@ -40,16 +32,27 @@ export default function ModalProvider({ children }: ModalProviderProps) {
       setOpenedModals((modals: any) => {
         return modals.filter((modal: any) => modal.Component !== Component);
       });
+
+      // 모달 닫을 때 pageIndex 초기화
+      updatePageIndex(0);
     },
     [setOpenedModals]
   );
 
+  const updatePageIndex = React.useCallback(
+    (page: number) => {
+      setPageIndex(page || 0);
+    },
+    [pageIndex, setPageIndex]
+  );
+
+  // React Context API 성능 최적화
   const dispatch: any = React.useMemo(() => ({ open, close }), [open, close]);
 
   return (
     <ModalsDispatchContext.Provider value={dispatch}>
       <ModalsOpenedContext.Provider value={openedModals}>
-        <ModalsStateContext.Provider value={{ curPage, changePage }}>
+        <ModalsStateContext.Provider value={{ pageIndex, updatePageIndex }}>
           {children}
         </ModalsStateContext.Provider>
       </ModalsOpenedContext.Provider>

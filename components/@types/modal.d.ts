@@ -16,3 +16,8 @@ export interface ModalsStateContextProps {
   curPage?: number;
   changePage?: any;
 }
+
+export interface OpenedModalProps {
+  Component: FunctionComponent<ModalProps>;
+  props: any;
+}

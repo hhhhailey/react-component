@@ -4,15 +4,19 @@ import { useBottomSheet } from "./useBottomSheet";
 import CloseIcon from "../../assets/icons/close.svg";
 
 export interface BottomSheetProps {
-  header?: React.ReactNode;
-  children: React.ReactNode;
-  footer?: React.ReactNode;
+  // 바텀시트 높이 조정
+  h?: string | number;
 
+  // 바텀시트 활성화 여부
   open?: boolean;
+  // 바텀시트 비활성화 기능
   onDismiss?: VoidFunction;
+  // 취소 버튼 활성 여부
   closeable?: boolean;
 
-  h?: string | number;
+  children: React.ReactNode;
+  header?: React.ReactNode;
+  footer?: React.ReactNode;
 }
 
 export interface BottomSheetContextProps {
@@ -22,7 +26,7 @@ export interface BottomSheetContextProps {
 export const BottomSheetContext =
   React.createContext<BottomSheetContextProps | null>(null);
 
-const BottomSheet: React.FC<BottomSheetProps> = ({ children, ...props }) => {
+export default function BottomSheet({ children, ...props }: BottomSheetProps) {
   const headerRef = React.useRef<any>(null);
   const footerRef = React.useRef<any>(null);
   const {
@@ -39,37 +43,40 @@ const BottomSheet: React.FC<BottomSheetProps> = ({ children, ...props }) => {
   });
 
   return (
-    <BottomSheetContext.Provider value={{ closeBottomSheet }}>
+    <React.Fragment>
       {props.open && (
-        <StyledWrap>
-          <StyledOverlay onClick={toggleOverlay} unmount={unmount} />
-          <StyledBottomSheetContainer h={props.h}>
-            <StyledBottomSheet unmount={unmount}>
-              {props.header && (
-                <StyledHeader ref={headerRef}>{props.header}</StyledHeader>
-              )}
-              {props.closeable && (
-                <CloseIcon onClick={closeBottomSheet} className="icon-close" />
-              )}
-              <StyledScroll
-                maxHeight={size.height!}
-                headerHeight={headerHeight}
-                footerHeight={footerHeight}
-              >
-                <StyledContent>{children}</StyledContent>
-              </StyledScroll>
-              {props.footer && (
-                <StyledFooter ref={footerRef}> {props.footer}</StyledFooter>
-              )}
-            </StyledBottomSheet>
-          </StyledBottomSheetContainer>
-        </StyledWrap>
+        <BottomSheetContext.Provider value={{ closeBottomSheet }}>
+          <StyledWrap>
+            <StyledOverlay onClick={toggleOverlay} unmount={unmount} />
+            <StyledBottomSheetContainer h={props.h}>
+              <StyledBottomSheet unmount={unmount}>
+                {props.header && (
+                  <StyledHeader ref={headerRef}>{props.header}</StyledHeader>
+                )}
+                {props.closeable && (
+                  <CloseIcon
+                    onClick={closeBottomSheet}
+                    className="icon-close"
+                  />
+                )}
+                <StyledScroll
+                  maxHeight={size.height!}
+                  headerHeight={headerHeight}
+                  footerHeight={footerHeight}
+                >
+                  <StyledContent>{children}</StyledContent>
+                </StyledScroll>
+                {props.footer && (
+                  <StyledFooter ref={footerRef}> {props.footer}</StyledFooter>
+                )}
+              </StyledBottomSheet>
+            </StyledBottomSheetContainer>
+          </StyledWrap>
+        </BottomSheetContext.Provider>
       )}
-    </BottomSheetContext.Provider>
+    </React.Fragment>
   );
-};
-
-export default BottomSheet;
+}
 
 BottomSheet.defaultProps = {
   open: false,

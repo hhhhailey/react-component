@@ -3,10 +3,14 @@ import Image from "next/image";
 import { Inter, Ultra } from "@next/font/google";
 import styles from "@/styles/Home.module.css";
 import { Button } from "antd";
-import { Checkbox, Input, View } from "@/components";
+import { Checkbox, Input, Modal, View } from "@/components";
 import React from "react";
 import styled from "styled-components";
 import BottomSheet from "@/components/bottom-sheet/BottomSheet";
+import useModal from "@/components/modal/useModals";
+import useModals from "@/components/modal/useModals";
+import MyModal from "@/components/modal/design/confirm-modal/ConfirmModal";
+import PageModal from "@/components/modal/design/page-modal/PageModal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,10 +18,26 @@ export default function Home() {
   const [isChecked, hasIsChecked] = React.useState(true);
   const [openBottomSheet, setOpenBottomSheet] = React.useState(false);
   const closeBottomSheet = () => {};
+  const { openModal } = useModals();
+  const openMainModal = () => {
+    openModal(MyModal, {
+      header: "header",
+      w: "40%",
+      h: 200,
+      footer: <div>footer</div>,
+    });
+  };
+  const openPageModal = () => {
+    openModal(PageModal, {
+      header: <Button>Back</Button>,
+    });
+  };
   return (
     <View direction={"column"} padding={["p-4"]} block>
       <Button type={"primary"}>Button</Button>
       <Button onClick={() => setOpenBottomSheet(true)}>바텀시트</Button>
+      <Button onClick={openMainModal}>모달</Button>
+      <Button onClick={openPageModal}>페이지 모달</Button>
       <Checkbox
         checked={isChecked}
         onChange={() => hasIsChecked((prev) => !prev)}

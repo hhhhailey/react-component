@@ -8,9 +8,7 @@ import React from "react";
 import styled from "styled-components";
 import BottomSheet from "@/components/bottom-sheet/BottomSheet";
 import useModals from "@/components/modal/useModals";
-import MyModal from "@/components/modal/design/confirm-modal/ConfirmModal";
-import PageModal from "@/components/modal/design/page-modal/PageModal";
-import { ModalsStateContext } from "@/components/modal/context";
+import { modals } from "@/components/modal/modals";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -81,10 +79,11 @@ export default function Home() {
   );
 
   const openMainModal = () => {
-    openModal(MyModal, {
+    openModal(modals.confirm, {
       header: "header",
-      w: "40%",
-      h: 200,
+      w: "80%",
+      h: 240,
+      title: "dkdkdkd",
       closeable: true,
       footer: <div>footer</div>,
       hasBtnSubmit: true,
@@ -95,7 +94,7 @@ export default function Home() {
   };
 
   const openPageModal = () => {
-    openModal(PageModal, {
+    openModal(modals.pages, {
       pages: [renderPageModal1, renderPageModal2, renderPageModal3],
       pageHeaderBtns: [
         <div key={0}>header1</div>,
@@ -122,7 +121,7 @@ export default function Home() {
   };
 
   const openBottomSheetModal = () => {
-    openModal(PageModal, {
+    openModal(modals.pages, {
       variant: "sheet",
       pages: [renderPageModal1, renderPageModal2, renderPageModal3],
       pageFooterBtns: [

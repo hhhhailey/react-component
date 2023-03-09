@@ -8,6 +8,9 @@ export interface ModalProps {
   w?: string | number;
   h?: string | number;
 
+  title?: string;
+  desc?: string;
+
   onClose?: VoidFunction;
   onSubmit?: VoidFunction;
   onConfirm?: VoidFunction;

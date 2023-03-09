@@ -14,11 +14,14 @@ const ConfirmModal: React.FC<ModalProps> = ({ ...props }) => {
 
   return (
     <StyledConfirmModal>
-      <StyledHeader>{props.header}</StyledHeader>
-      {props.closeable && (
-        <CloseIcon className={"icon-close"} onClick={closeModal} />
-      )}
-      <div>this is confirm modal</div>
+      <StyledHeader>
+        {props.header && props.header}
+        {props.closeable && (
+          <CloseIcon className={"icon-close"} onClick={closeModal} />
+        )}
+      </StyledHeader>
+      {props.title && <StyledTitle>{props.title}</StyledTitle>}
+      {props.desc && <StyledDesc>{props.desc}</StyledDesc>}
       <StyledFooter>
         {props.onClose && props.hasBtnCancel && (
           <Button onClick={closeModal}>취소</Button>
@@ -29,7 +32,7 @@ const ConfirmModal: React.FC<ModalProps> = ({ ...props }) => {
         {props.onSubmit && props.hasBtnSubmit && (
           <Button onClick={submit}>등록</Button>
         )}
-        {props.footer && <StyledFooter>{props.footer}</StyledFooter>}
+        {props.footer && props.footer}
       </StyledFooter>
     </StyledConfirmModal>
   );
@@ -61,3 +64,6 @@ const StyledFooter = styled.div`
   height: 52px;
   background-color: white;
 `;
+
+const StyledTitle = styled.div``;
+const StyledDesc = styled.div``;

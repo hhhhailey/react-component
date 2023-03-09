@@ -1,4 +1,5 @@
-import React from "react";
+import React, { ComponentProps, FunctionComponent } from "react";
+import loadable from "@loadable/component";
 import styled, { css, keyframes } from "styled-components";
 import { ModalVariantUnion } from "../@types/modal";
 import { ModalsDispatchContext, ModalsOpenedContext } from "./context";
@@ -32,7 +33,6 @@ export default function Modals() {
         return (
           <StyledWrap key={index}>
             <StyledOverlay onClick={closeModal} unmount={unmount} />
-
             <StyledModal
               w={props.w}
               h={props.h}
@@ -46,7 +46,6 @@ export default function Modals() {
                   onSubmit={handleSubmit}
                 />
               </StyledScroll>
-              <StyledFooter>{props.footer && props.footer}</StyledFooter>
             </StyledModal>
           </StyledWrap>
         );
@@ -100,10 +99,8 @@ const StyledModal = styled.div<{
 `;
 
 const StyledScroll = styled.div`
-  flex: 1;
   max-height: 300px;
   overflow-y: scroll;
-  -webkit-overflow-scrolling: auto;
 `;
 
 const StyledFooter = styled.div`

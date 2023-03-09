@@ -19,31 +19,9 @@ export default function Home() {
   const [openBottomSheet, setOpenBottomSheet] = React.useState(false);
 
   const closeBottomSheet = () => {};
-  const { openModal, setPageIndex } = useModals();
-  const renderPageModal1 = (
-    <div>
-      page modal 1
-      <Button
-        onClick={() => {
-          setPageIndex(1);
-        }}
-      >
-        next
-      </Button>
-    </div>
-  );
-  const renderPageModal2 = (
-    <div>
-      page modal 2{" "}
-      <Button
-        onClick={() => {
-          setPageIndex(2);
-        }}
-      >
-        next
-      </Button>
-    </div>
-  );
+  const { openModal, setPageIndex, pageIndex } = useModals();
+  const renderPageModal1 = <div>page modal 1</div>;
+  const renderPageModal2 = <div>page modal 2 </div>;
   const renderPageModal3 = (
     <div>
       page modal3
@@ -118,8 +96,28 @@ export default function Home() {
 
   const openPageModal = () => {
     openModal(PageModal, {
-      header: <Button>Back</Button>,
       pages: [renderPageModal1, renderPageModal2, renderPageModal3],
+      pageHeaderBtns: [
+        <div key={0}>header1</div>,
+        <div key={1}>header2</div>,
+        <div key={2}>header3</div>,
+      ],
+      pageFooterBtns: [
+        <Button block key={0} onClick={() => setPageIndex(1)}>
+          다음
+        </Button>,
+        <Button block key={1} onClick={() => setPageIndex(2)}>
+          다음
+        </Button>,
+        <>
+          <Button block onClick={() => setPageIndex(0)}>
+            처음으로
+          </Button>
+          <Button block onClick={() => setPageIndex(1)}>
+            이전으로
+          </Button>
+        </>,
+      ],
     });
   };
 
@@ -127,7 +125,22 @@ export default function Home() {
     openModal(PageModal, {
       variant: "sheet",
       pages: [renderPageModal1, renderPageModal2, renderPageModal3],
-      footer: <div>ffff</div>,
+      pageFooterBtns: [
+        <Button block key={0} onClick={() => setPageIndex(1)}>
+          다음
+        </Button>,
+        <Button block key={1} onClick={() => setPageIndex(2)}>
+          다음
+        </Button>,
+        <>
+          <Button block onClick={() => setPageIndex(0)}>
+            처음으로
+          </Button>
+          <Button block onClick={() => setPageIndex(1)}>
+            이전으로
+          </Button>
+        </>,
+      ],
     });
   };
 

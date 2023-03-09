@@ -20,8 +20,8 @@ export default function useModals() {
 
   const closeModal = () => {};
 
-  const setPageIndex = (pageIndex: number) => {
-    updatePageIndex(pageIndex);
+  const setPageIndex = (page: number) => {
+    updatePageIndex(page);
   };
 
   return { openModal, closeModal, pageIndex, setPageIndex };

@@ -46,6 +46,7 @@ export default function Modals() {
                   onSubmit={handleSubmit}
                 />
               </StyledScroll>
+              <StyledFooter>{props.footer && props.footer}</StyledFooter>
             </StyledModal>
           </StyledWrap>
         );
@@ -103,6 +104,13 @@ const StyledScroll = styled.div`
   max-height: 300px;
   overflow-y: scroll;
   -webkit-overflow-scrolling: auto;
+`;
+
+const StyledFooter = styled.div`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
 `;
 
 const variantModalWrapperStyles = (variant = "modal") =>

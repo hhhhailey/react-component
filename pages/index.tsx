@@ -46,7 +46,45 @@ export default function Home() {
   );
   const renderPageModal3 = (
     <div>
-      page modal 3
+      page modal3
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
+      <p>page pagepagepagepagepagepagepage </p>
       <Button
         onClick={() => {
           setPageIndex(1);
@@ -84,12 +122,22 @@ export default function Home() {
       pages: [renderPageModal1, renderPageModal2, renderPageModal3],
     });
   };
+
+  const openBottomSheetModal = () => {
+    openModal(PageModal, {
+      variant: "sheet",
+      pages: [renderPageModal1, renderPageModal2, renderPageModal3],
+      footer: <div>ffff</div>,
+    });
+  };
+
   return (
     <View direction={"column"} padding={["p-4"]} block>
       <Button type={"primary"}>Button</Button>
       <Button onClick={() => setOpenBottomSheet(true)}>바텀시트</Button>
       <Button onClick={openMainModal}>모달</Button>
       <Button onClick={openPageModal}>페이지 모달</Button>
+      <Button onClick={openBottomSheetModal}>바텀시트 모달</Button>
       <Checkbox
         checked={isChecked}
         onChange={() => hasIsChecked((prev) => !prev)}

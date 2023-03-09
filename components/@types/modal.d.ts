@@ -1,5 +1,6 @@
+export type ModalVariantUnion = "modal" | "sheet";
 export interface ModalProps {
-  open?: boolean;
+  variant?: ModalVariantUnion;
   header?: React.ReactNode;
   footer?: React.ReactNode;
   closeable?: boolean;

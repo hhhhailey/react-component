@@ -9,7 +9,7 @@ export interface UseModalsProps {
 
 export default function useModals() {
   const { open, close } = React.useContext(ModalsDispatchContext);
-  const { updatePageIndex } = React.useContext(ModalsStateContext);
+  const { pageIndex, updatePageIndex } = React.useContext(ModalsStateContext);
 
   const openModal = <T extends FunctionComponent>(
     Component: T,
@@ -24,5 +24,5 @@ export default function useModals() {
     updatePageIndex(pageIndex);
   };
 
-  return { openModal, closeModal, setPageIndex };
+  return { openModal, closeModal, pageIndex, setPageIndex };
 }

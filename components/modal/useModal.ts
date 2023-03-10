@@ -1,15 +1,15 @@
 import React, { ComponentProps, FunctionComponent } from "react";
 import { ModalProps } from "../@types/modal";
-import { ModalsDispatchContext, ModalsStateContext } from "./context";
+import { ModalDispatchContext, ModalStateContext } from "./setting/context";
 
-export interface UseModalsProps {
+export interface useModalProps {
   Component: any;
   props: any;
 }
 
-export default function useModals() {
-  const { open, close } = React.useContext(ModalsDispatchContext);
-  const { pageIndex, updatePageIndex } = React.useContext(ModalsStateContext);
+export default function useModal() {
+  const { open, close } = React.useContext(ModalDispatchContext);
+  const { pageIndex, updatePageIndex } = React.useContext(ModalStateContext);
 
   const openModal = <T extends FunctionComponent>(
     Component: T,

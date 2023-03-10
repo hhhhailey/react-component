@@ -1,7 +1,7 @@
 import { ModalProps } from "@/components/@types/modal";
 import React from "react";
 import styled from "styled-components";
-import { ModalsStateContext } from "../../context";
+import { ModalStateContext } from "../../setting/context";
 import BackIcon from "@/assets/icons/arrow-back.svg";
 import ClosedIcon from "@/assets/icons/close.svg";
 
@@ -12,7 +12,7 @@ export interface PageModalProps extends ModalProps {
 }
 
 export default function PageModal({ ...props }: PageModalProps) {
-  const { pageIndex, updatePageIndex } = React.useContext(ModalsStateContext);
+  const { pageIndex, updatePageIndex } = React.useContext(ModalStateContext);
 
   const moveToBack = () => {
     if (pageIndex === 0) return false;

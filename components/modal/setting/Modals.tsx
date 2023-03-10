@@ -1,17 +1,17 @@
 import React, { ComponentProps, FunctionComponent } from "react";
 import loadable from "@loadable/component";
 import styled, { css, keyframes } from "styled-components";
-import { ModalVariantUnion } from "../@types/modal";
-import { ModalsDispatchContext, ModalsOpenedContext } from "./context";
+import { ModalVariantUnion } from "../../@types/modal";
+import { ModalDispatchContext, ModalOpenedContext } from "./context";
 import useDimension from "@/hooks/useDimension";
 
 const ConfirmModal = loadable(
-  () => import("@/components/modal/design/confirm-modal/ConfirmModal"),
+  () => import("@/components/modal/widget/confirm-modal/ConfirmModal"),
   { ssr: false }
 );
 
 const PagesModal = loadable(
-  () => import("@/components/modal/design/page-modal/PageModal"),
+  () => import("@/components/modal/widget/page-modal/PageModal"),
   { ssr: false }
 );
 
@@ -23,10 +23,10 @@ export const modals = {
 };
 
 export default function Modals() {
-  const openedModals = React.useContext(ModalsOpenedContext);
-  const { close } = React.useContext(ModalsDispatchContext);
+  const openedModals = React.useContext(ModalOpenedContext);
+  const { close } = React.useContext(ModalDispatchContext);
   const [unmount, setUnmount] = React.useState(false);
-  const modalRef = React.useRef(null);
+  const modalRef = React.useRef<any>(null);
   const { width, height } = useDimension(modalRef);
 
   return (
@@ -34,6 +34,7 @@ export default function Modals() {
       {openedModals.map((modal, index) => {
         const { Component, props } = modal;
         const { onSubmit, variant = "modal", ...rest } = props;
+        console.log(props.open, "open");
 
         const closeModal = () => {
           setUnmount(true);
@@ -54,7 +55,6 @@ export default function Modals() {
           <StyledWrap key={index}>
             <StyledOverlay onClick={closeModal} unmount={unmount} />
             <StyledModal
-              ref={modalRef}
               w={props.w}
               h={props.h}
               variant={variant}
@@ -62,9 +62,10 @@ export default function Modals() {
             >
               <StyledScroll>
                 <Component
-                  {...rest}
+                  ref={modalRef}
                   onClose={closeModal}
                   onSubmit={handleSubmit}
+                  {...rest}
                 />
               </StyledScroll>
             </StyledModal>

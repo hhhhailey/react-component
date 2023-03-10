@@ -7,8 +7,8 @@ import { Checkbox, Input, Modal, View } from "@/components";
 import React from "react";
 import styled from "styled-components";
 import BottomSheet from "@/components/bottom-sheet/BottomSheet";
-import useModals from "@/components/modal/useModals";
-import { modals } from "@/components/modal/Modals";
+import useModal from "@/components/modal/useModal";
+import { modals } from "@/components/modal/setting/Modals";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +17,7 @@ export default function Home() {
   const [openBottomSheet, setOpenBottomSheet] = React.useState(false);
 
   const closeBottomSheet = () => {};
-  const { openModal, setPageIndex, pageIndex } = useModals();
+  const { openModal, setPageIndex, pageIndex } = useModal();
   const renderPageModal1 = <div>page modal 1</div>;
   const renderPageModal2 = <div>page modal 2 </div>;
   const renderPageModal3 = (

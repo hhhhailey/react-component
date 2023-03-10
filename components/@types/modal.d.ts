@@ -1,5 +1,7 @@
 export type ModalVariantUnion = "modal" | "sheet";
+
 export interface ModalProps {
+  open?: boolean;
   variant?: ModalVariantUnion;
   header?: React.ReactNode;
   footer?: React.ReactNode;
@@ -21,12 +23,22 @@ export interface ModalProps {
   hasBtnConfirm?: boolean;
 }
 
-export interface ModalsStateContextProps {
+export interface ModalDispatchProps {
+  open: <T extends React.FunctionComponent<ModalProps>>(
+    Component: T,
+    props: React.ComponentProps<T>
+  ) => void;
+  close: <T extends React.FunctionComponent<{}>>(Component: T) => void;
+}
+
+export interface ModalStateContextProps {
   curPage?: number;
   changePage?: any;
 }
 
-export interface OpenedModalProps {
-  Component: FunctionComponent<ModalProps>;
-  props: ModalProps;
+export interface ModalOpenedContextProps<
+  T extends React.FunctionComponent<ModalProps>
+> {
+  Component: T;
+  props: React.ComponentProps<T>;
 }

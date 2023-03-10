@@ -22,15 +22,22 @@ const ConfirmModal: React.FC<ModalProps> = ({ ...props }) => {
       </StyledHeader>
       {props.title && <StyledTitle>{props.title}</StyledTitle>}
       {props.desc && <StyledDesc>{props.desc}</StyledDesc>}
+      {props.content && props.content}
       <StyledFooter>
         {props.onClose && props.hasBtnCancel && (
-          <Button onClick={closeModal}>취소</Button>
+          <Button block onClick={closeModal}>
+            취소
+          </Button>
         )}
         {props.onConfirm && props.hasBtnConfirm && (
-          <Button onClick={submit}>확인</Button>
+          <Button block onClick={submit}>
+            확인
+          </Button>
         )}
         {props.onSubmit && props.hasBtnSubmit && (
-          <Button onClick={submit}>등록</Button>
+          <Button block onClick={submit}>
+            등록
+          </Button>
         )}
         {props.footer && props.footer}
       </StyledFooter>
@@ -57,12 +64,15 @@ const StyledConfirmModal = styled.div`
 `;
 const StyledHeader = styled.div``;
 const StyledFooter = styled.div`
-  position: absolute;
-  bottom: 0;
+  position: fixed;
   left: 0;
+  bottom: 0;
   width: 100%;
+  display: flex;
+  align-items: flex-end;
+  flex: 1;
+  gap: 8px;
   height: 52px;
-  background-color: white;
 `;
 
 const StyledTitle = styled.div``;

@@ -3,11 +3,31 @@ import loadable from "@loadable/component";
 import styled, { css, keyframes } from "styled-components";
 import { ModalVariantUnion } from "../@types/modal";
 import { ModalsDispatchContext, ModalsOpenedContext } from "./context";
+import useDimension from "@/hooks/useDimension";
+
+const ConfirmModal = loadable(
+  () => import("@/components/modal/design/confirm-modal/ConfirmModal"),
+  { ssr: false }
+);
+
+const PagesModal = loadable(
+  () => import("@/components/modal/design/page-modal/PageModal"),
+  { ssr: false }
+);
+
+export const modals = {
+  confirm: ConfirmModal as FunctionComponent<
+    ComponentProps<typeof ConfirmModal>
+  >,
+  pages: PagesModal as FunctionComponent<ComponentProps<typeof PagesModal>>,
+};
 
 export default function Modals() {
   const openedModals = React.useContext(ModalsOpenedContext);
   const { close } = React.useContext(ModalsDispatchContext);
   const [unmount, setUnmount] = React.useState(false);
+  const modalRef = React.useRef(null);
+  const { width, height } = useDimension(modalRef);
 
   return (
     <>
@@ -34,6 +54,7 @@ export default function Modals() {
           <StyledWrap key={index}>
             <StyledOverlay onClick={closeModal} unmount={unmount} />
             <StyledModal
+              ref={modalRef}
               w={props.w}
               h={props.h}
               variant={variant}

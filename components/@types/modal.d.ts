@@ -10,6 +10,7 @@ export interface ModalProps {
 
   title?: string;
   desc?: string;
+  content?: React.ReactNode;
 
   onClose?: VoidFunction;
   onSubmit?: VoidFunction;

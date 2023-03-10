@@ -8,7 +8,7 @@ import React from "react";
 import styled from "styled-components";
 import BottomSheet from "@/components/bottom-sheet/BottomSheet";
 import useModals from "@/components/modal/useModals";
-import { modals } from "@/components/modal/modals";
+import { modals } from "@/components/modal/Modals";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -84,8 +84,6 @@ export default function Home() {
       w: "80%",
       h: 240,
       title: "dkdkdkd",
-      closeable: true,
-      footer: <div>footer</div>,
       hasBtnSubmit: true,
       onSubmit: () => {
         console.log("onSubmit 비지니스 로직");

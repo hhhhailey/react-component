@@ -22,4 +22,6 @@ export const ModalDispatchContext = createContext({
 export const ModalStateContext = createContext({
   pageIndex: 0,
   updatePageIndex: (pageIndex: number) => {},
+  mounted: false,
+  updateMounted: (mounted: boolean) => {},
 });

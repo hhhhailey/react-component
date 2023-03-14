@@ -11,18 +11,36 @@ export interface PageModalProps extends ModalProps {
   pageFooterBtns?: React.ReactNode[];
 }
 
-export default function PageModal({ ...props }: PageModalProps) {
-  const { pageIndex, updatePageIndex } = React.useContext(ModalStateContext);
+const PageModal = React.forwardRef(({ ...props }: PageModalProps, ref) => {
+  const { pageIndex, updatePageIndex, mounted, updateMounted } =
+    React.useContext(ModalStateContext);
   const headerRef = React.useRef() as React.MutableRefObject<HTMLDivElement>;
+  const footerRef = React.useRef() as React.MutableRefObject<HTMLDivElement>;
+  const [heights, setHeights] = React.useState({ hh: 0, fh: 0 });
 
   const moveToBack = () => {
     if (pageIndex === 0) return false;
     else updatePageIndex(pageIndex - 1);
   };
 
+  React.useImperativeHandle(ref, () => ({
+    // getHeaderHeight: heights.hh,
+    // getFooterHeight: heights.fh,
+    getHeaderHeight: headerRef.current?.clientHeight,
+    getFooterHeight: footerRef.current?.clientHeight,
+  }));
+
   React.useEffect(() => {
-    if (props.open) console.log(headerRef.current?.clientHeight, "height");
+    if (props.open) {
+      setHeights({ hh: headerRef.current?.clientHeight, fh: 80 });
+    }
   }, [props.open]);
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      !mounted && updateMounted(mounted);
+    }, 0);
+  }, [props.pages]);
 
   return (
     <StyledPageModal>
@@ -39,19 +57,26 @@ export default function PageModal({ ...props }: PageModalProps) {
         )}
       </StyledHeader>
       {props.pages![pageIndex]}
-      <StyledFooter>
+      <StyledFooter ref={footerRef}>
         {props.pageFooterBtns?.map((btn, index) => {
           return pageIndex === index && btn;
         })}
       </StyledFooter>
     </StyledPageModal>
   );
-}
+});
+
+export default PageModal;
+PageModal.displayName = "PageModal";
 
 const StyledPageModal = styled.div`
   padding-bottom: 52px;
 `;
 const StyledHeader = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   padding-bottom: 16px;
   .icon-closed {
     position: absolute;

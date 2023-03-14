@@ -2,8 +2,13 @@ import React, { ComponentProps, FunctionComponent } from "react";
 import loadable from "@loadable/component";
 import styled, { css, keyframes } from "styled-components";
 import { ModalVariantUnion } from "../../@types/modal";
-import { ModalDispatchContext, ModalOpenedContext } from "./context";
+import {
+  ModalDispatchContext,
+  ModalOpenedContext,
+  ModalStateContext,
+} from "./context";
 import useDimension from "@/hooks/useDimension";
+import { useWindowSize } from "@/hooks/useWindowSize";
 
 const ConfirmModal = loadable(
   () => import("@/components/modal/widget/confirm-modal/ConfirmModal"),
@@ -24,20 +29,27 @@ export const modals = {
 
 export default function Modals() {
   const openedModals = React.useContext(ModalOpenedContext);
-  const { close } = React.useContext(ModalDispatchContext);
+  const { open, close } = React.useContext(ModalDispatchContext);
+  const { mounted, pageIndex, updateMounted } =
+    React.useContext(ModalStateContext);
   const [unmount, setUnmount] = React.useState(false);
-  const modalRef = React.useRef<any>(null);
-  const { width, height } = useDimension(modalRef);
+  const [refMount, setRefMount] = React.useState(false);
+  const modalRef = React.useRef() as React.MutableRefObject<any>;
+  const { width, height } = useWindowSize();
+
+  React.useEffect(() => {
+    console.log(modalRef, "modalRef");
+  }, [mounted, pageIndex]);
 
   return (
     <>
       {openedModals.map((modal, index) => {
         const { Component, props } = modal;
         const { onSubmit, variant = "modal", ...rest } = props;
-        console.log(props.open, "open");
 
         const closeModal = () => {
           setUnmount(true);
+          updateMounted(true);
           setTimeout(() => {
             setUnmount(false);
             close(Component);
@@ -60,7 +72,12 @@ export default function Modals() {
               variant={variant}
               unmount={unmount}
             >
-              <StyledScroll>
+              <StyledScroll
+                maxH={setScrollHeight(
+                  modalRef.current?.getHeaderHeight,
+                  modalRef.current?.getFooterHeight
+                )}
+              >
                 <Component
                   ref={modalRef}
                   onClose={closeModal}
@@ -120,8 +137,9 @@ const StyledModal = styled.div<{
   }};
 `;
 
-const StyledScroll = styled.div`
-  max-height: 300px;
+const StyledScroll = styled.div<{ maxH?: number }>`
+  /* max-height: 300px; */
+  max-height: ${(p) => p.maxH}px;
   overflow-y: scroll;
 `;
 
@@ -131,6 +149,12 @@ const StyledFooter = styled.div`
   left: 0;
   width: 100%;
 `;
+
+const setScrollHeight = (hh: number, fh: number): number => {
+  let result = 300;
+  result = window.innerHeight - hh - fh;
+  return result;
+};
 
 const variantModalWrapperStyles = (variant = "modal") =>
   ({

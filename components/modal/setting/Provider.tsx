@@ -14,6 +14,7 @@ export default function ModalProvider({ children }: ModalProviderProps) {
   // 열린 모달 상태 관리
   const [openedModals, setOpenedModals] = React.useState<any[]>([]);
   const [pageIndex, setPageIndex] = React.useState<number>(0);
+  const [mounted, setMounted] = React.useState<boolean>(false);
 
   /**
    * 페이지모델에서 pageIndex값 업데이트 함수
@@ -24,6 +25,13 @@ export default function ModalProvider({ children }: ModalProviderProps) {
       setPageIndex(page || 0);
     },
     [setPageIndex]
+  );
+
+  const updateMounted = React.useCallback(
+    (mounted: boolean) => {
+      setMounted(!mounted);
+    },
+    [mounted]
   );
 
   /**
@@ -67,7 +75,9 @@ export default function ModalProvider({ children }: ModalProviderProps) {
   return (
     <ModalDispatchContext.Provider value={dispatch}>
       <ModalOpenedContext.Provider value={openedModals}>
-        <ModalStateContext.Provider value={{ pageIndex, updatePageIndex }}>
+        <ModalStateContext.Provider
+          value={{ pageIndex, updatePageIndex, mounted, updateMounted }}
+        >
           {children}
         </ModalStateContext.Provider>
       </ModalOpenedContext.Provider>

@@ -13,15 +13,20 @@ export interface PageModalProps extends ModalProps {
 
 export default function PageModal({ ...props }: PageModalProps) {
   const { pageIndex, updatePageIndex } = React.useContext(ModalStateContext);
+  const headerRef = React.useRef() as React.MutableRefObject<HTMLDivElement>;
 
   const moveToBack = () => {
     if (pageIndex === 0) return false;
     else updatePageIndex(pageIndex - 1);
   };
 
+  React.useEffect(() => {
+    if (props.open) console.log(headerRef.current?.clientHeight, "height");
+  }, [props.open]);
+
   return (
     <StyledPageModal>
-      <StyledHeader>
+      <StyledHeader ref={headerRef}>
         {props.pageHeaderBtns ? (
           props.pageHeaderBtns?.map((btn, index) => {
             return pageIndex === index && btn;

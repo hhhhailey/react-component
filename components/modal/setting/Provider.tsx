@@ -37,7 +37,7 @@ export default function ModalProvider({ children }: ModalProviderProps) {
       props: ComponentProps<T>
     ) => {
       setOpenedModals((modals) => {
-        return [...modals, { Component, props }];
+        return [...modals, { Component, props: { ...props, open: true } }];
       });
     },
     [setOpenedModals]

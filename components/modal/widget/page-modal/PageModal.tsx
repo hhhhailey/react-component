@@ -16,26 +16,24 @@ const PageModal = React.forwardRef(({ ...props }: PageModalProps, ref) => {
     React.useContext(ModalStateContext);
   const headerRef = React.useRef() as React.MutableRefObject<HTMLDivElement>;
   const footerRef = React.useRef() as React.MutableRefObject<HTMLDivElement>;
-  const [heights, setHeights] = React.useState({ hh: 0, fh: 0 });
 
+  // 헤더 뒤로가기
   const moveToBack = () => {
     if (pageIndex === 0) return false;
     else updatePageIndex(pageIndex - 1);
   };
 
+  /**
+   * Modals 부모컴포넌트에서 호출할 리스트
+   */
   React.useImperativeHandle(ref, () => ({
-    // getHeaderHeight: heights.hh,
-    // getFooterHeight: heights.fh,
     getHeaderHeight: headerRef.current?.clientHeight,
     getFooterHeight: footerRef.current?.clientHeight,
   }));
 
-  React.useEffect(() => {
-    if (props.open) {
-      setHeights({ hh: headerRef.current?.clientHeight, fh: 80 });
-    }
-  }, [props.open]);
-
+  /**
+   * modalRef 리렌딩 마운트
+   */
   React.useEffect(() => {
     setTimeout(() => {
       !mounted && updateMounted(mounted);
@@ -97,4 +95,5 @@ const StyledFooter = styled.div`
   flex: 1;
   gap: 8px;
   height: 52px;
+  background-color: white;
 `;

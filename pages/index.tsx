@@ -3,12 +3,13 @@ import Image from "next/image";
 import { Inter, Ultra } from "@next/font/google";
 import styles from "@/styles/Home.module.css";
 import { Button } from "antd";
-import { Checkbox, Input, Modal, View } from "@/components";
+import { Checkbox, Input, Modal, Switch, View } from "@/components";
 import React from "react";
 import styled from "styled-components";
 import BottomSheet from "@/components/bottom-sheet/BottomSheet";
 import useModal from "@/components/modal/useModal";
 import { modals } from "@/components/modal/setting/Modals";
+import useToggle, { toggleReducer } from "@/components/switch/useSwitch";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -141,8 +142,34 @@ export default function Home() {
     });
   };
 
+  const [clickCount, setClickCount] = React.useState(0);
+  const tooManyClick = clickCount > 4;
+
+  const { on, toggle, setOn, setOff } = useToggle({
+    reducer(currentState, action) {
+      const changes = toggleReducer(currentState, action);
+      if (tooManyClick && action.type === "TOGGLE") {
+        console.log(currentState, tooManyClick, "1");
+        return { ...changes, on: currentState.on };
+      } else {
+        console.log(currentState, "?22");
+        return changes;
+      }
+    },
+  });
+
   return (
     <View direction={"column"} padding={["p-4"]} block>
+      <Switch
+        on={on}
+        onClick={() => {
+          toggle();
+          setClickCount((c) => c + 1);
+        }}
+      />
+      {tooManyClick ? (
+        <button onClick={() => setClickCount(0)}>reset</button>
+      ) : null}
       <Button type={"primary"}>Button</Button>
       <Button onClick={() => setOpenBottomSheet(true)}>바텀시트</Button>
       <Button onClick={openMainModal}>모달</Button>

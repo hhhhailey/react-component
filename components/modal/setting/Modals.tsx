@@ -29,13 +29,11 @@ export const modals = {
 
 export default function Modals() {
   const openedModals = React.useContext(ModalOpenedContext);
-  const { open, close } = React.useContext(ModalDispatchContext);
+  const { close } = React.useContext(ModalDispatchContext);
   const { mounted, pageIndex, updateMounted } =
     React.useContext(ModalStateContext);
   const [unmount, setUnmount] = React.useState(false);
-  const [refMount, setRefMount] = React.useState(false);
   const modalRef = React.useRef() as React.MutableRefObject<any>;
-  const { width, height } = useWindowSize();
 
   React.useEffect(() => {
     console.log(modalRef, "modalRef");

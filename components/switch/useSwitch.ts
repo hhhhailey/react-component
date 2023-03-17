@@ -6,7 +6,17 @@ const ACTION_TYPE = {
   off: "OFF",
 };
 
-export function toggleReducer(state: any, action: any) {
+type ActionTypeUnion = "TOGGLE" | "ON" | "OFF";
+interface StateProps {
+  on: boolean;
+}
+
+interface ActionProps {
+  type: ActionTypeUnion;
+}
+
+export function toggleReducer(state: StateProps, action: ActionProps) {
+  console.log(action, "action?");
   switch (action.type) {
     case ACTION_TYPE.toggle: {
       return { on: !state.on };

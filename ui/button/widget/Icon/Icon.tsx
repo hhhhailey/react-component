@@ -7,18 +7,29 @@ import ArrowBackIcon from "@/assets/icons/arrow-back.svg";
 import ClosedIcon from "@/assets/icons/closed.svg";
 
 export interface ButtonIconProps extends ButtonProps {
-  w?: number | string;
-  h?: number | string;
+  iconW?: number | string;
+  iconH?: number | string;
 
   icon: {
     image?: any;
     svg?: React.ReactNode;
     registered?: ButtonRegisterUnion;
   };
+  ratio?: {
+    icon?: number;
+    text?: number;
+  };
   spacing?: number;
 }
 
-function Icon({ w, h, icon, children, ...props }: ButtonIconProps) {
+function Icon({
+  iconW,
+  iconH,
+  icon,
+  ratio,
+  children,
+  ...props
+}: ButtonIconProps) {
   const mappingRegisteredIcon: any = {
     back: <ArrowBackIcon />,
     closed: <ClosedIcon />,
@@ -43,10 +54,10 @@ function Icon({ w, h, icon, children, ...props }: ButtonIconProps) {
 
   return (
     <StyledButtonIcon {...props}>
-      <StyledIcon w={w} h={h}>
+      <StyledIcon w={iconW} h={iconH} flex={ratio?.icon}>
         {printedIcon}
       </StyledIcon>
-      {children && <div>{children}</div>}
+      {children && <StyledText flex={ratio?.text}>{children}</StyledText>}
     </StyledButtonIcon>
   );
 }
@@ -63,15 +74,23 @@ const StyledButtonIcon = styled.button<{
   flex-direction: row;
   align-items: center;
   gap: ${(p) => p.spacing}px;
-  width: 100% !important;
 
-  /* ${(p) => p.block && "width: 100% !important"}; */
+  ${(p) => p.block && "width: 100% !important"};
 `;
-const StyledIcon = styled.div<{ w?: number | string; h?: number | string }>`
+const StyledIcon = styled.div<{
+  w?: number | string;
+  h?: number | string;
+  flex?: number;
+}>`
+  ${(p) => p.flex && `flex: ${p.flex}`};
   width: ${(p) => (typeof p.w === "number" ? p.w + "px" : p.w)};
   height: ${(p) => (typeof p.h === "number" ? p.h + "px" : p.h)};
 
   & > img {
     object-fit: contain;
   }
+`;
+const StyledText = styled.div<{ flex?: number }>`
+  ${(p) => p.flex && `flex: ${p.flex}`};
+  text-align: left;
 `;

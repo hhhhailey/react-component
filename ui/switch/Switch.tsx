@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import useSwitch from "./useSwitch";
 
 interface SwitchProps extends React.InputHTMLAttributes<HTMLInputElement> {
   on: boolean;

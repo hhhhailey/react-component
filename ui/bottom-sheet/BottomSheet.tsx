@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css, keyframes } from "styled-components";
 import { useBottomSheet } from "./useBottomSheet";
-import CloseIcon from "../../assets/icons/close.svg";
+import CloseIcon from "../../assets/icons/closed.svg";
 
 export interface BottomSheetProps {
   // 바텀시트 높이 조정

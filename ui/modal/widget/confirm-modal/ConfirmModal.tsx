@@ -1,8 +1,8 @@
-import { ModalProps } from "@/components/@types/modal";
+import { ModalProps } from "@/ui/@types/modal";
 import { Button } from "antd";
 import React from "react";
 import styled from "styled-components";
-import CloseIcon from "@/assets/icons/close.svg";
+import CloseIcon from "@/assets/icons/closed.svg";
 
 const ConfirmModal: React.FC<ModalProps> = React.forwardRef(
   ({ ...props }, ref) => {
@@ -71,9 +71,9 @@ const StyledConfirmModal = styled.div`
 `;
 const StyledHeader = styled.div``;
 const StyledFooter = styled.div`
-  position: fixed;
+  /* position: absolute;
   left: 0;
-  bottom: 0;
+  bottom: 0; */
   width: 100%;
   display: flex;
   align-items: flex-end;

@@ -1,4 +1,4 @@
-import { Form, Input } from "@/components";
+import { Form, Input } from "@/ui";
 import React from "react";
 import styled from "styled-components";
 

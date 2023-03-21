@@ -11,12 +11,12 @@ import useDimension from "@/hooks/useDimension";
 import { useWindowSize } from "@/hooks/useWindowSize";
 
 const ConfirmModal = loadable(
-  () => import("@/components/modal/widget/confirm-modal/ConfirmModal"),
+  () => import("@/ui/modal/widget/confirm-modal/ConfirmModal"),
   { ssr: false }
 );
 
 const PagesModal = loadable(
-  () => import("@/components/modal/widget/page-modal/PageModal"),
+  () => import("@/ui/modal/widget/page-modal/PageModal"),
   { ssr: false }
 );
 
@@ -122,7 +122,7 @@ const StyledModal = styled.div<{
   height: ${(p) => (typeof p.h === "number" ? p.h + "px" : p.h)};
   background: white;
   border-radius: 16px;
-  padding: 24px;
+  padding: 12px;
 
   ${(p) => variantModalStyles(p.variant)};
   ${(p) => {

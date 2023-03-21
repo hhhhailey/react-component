@@ -1,9 +1,9 @@
-import { ModalProps } from "@/components/@types/modal";
+import { ModalProps } from "@/ui/@types/modal";
 import React from "react";
 import styled from "styled-components";
 import { ModalStateContext } from "../../setting/context";
 import BackIcon from "@/assets/icons/arrow-back.svg";
-import ClosedIcon from "@/assets/icons/close.svg";
+import ClosedIcon from "@/assets/icons/closed.svg";
 
 export interface PageModalProps extends ModalProps {
   pages?: any[];

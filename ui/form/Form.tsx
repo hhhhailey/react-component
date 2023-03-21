@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Input } from "@/components";
+import { Input } from "@/ui";
 
 const Form: React.FC<any> = ({ children }) => {
   return (

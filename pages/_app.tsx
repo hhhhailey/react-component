@@ -1,6 +1,6 @@
-import Modals from "@/components/modal/setting/Modals";
-import ModalProvider from "@/components/modal/setting/Provider";
-import "@/styles/globals.css";
+import Modals from "@/ui/modal/setting/Modals";
+import ModalProvider from "@/ui/modal/setting/Provider";
+import "@/styles/globals.scss";
 import type { AppProps } from "next/app";
 // require("../styles/variables.less");
 

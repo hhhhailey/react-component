@@ -1,9 +1,8 @@
 import Head from "next/head";
 import Image from "next/image";
-import { Inter, Ultra } from "@next/font/google";
 import styles from "@/styles/Home.module.css";
 import { Button } from "antd";
-import { Checkbox, Input, Switch, View } from "@/ui";
+import { Checkbox, Switch, View } from "@/ui";
 import React from "react";
 import styled from "styled-components";
 import BottomSheet from "@/ui/bottom-sheet/BottomSheet";
@@ -11,8 +10,6 @@ import useModal from "@/ui/modal/useModal";
 import { modals } from "@/ui/modal/setting/Modals";
 import useToggle, { toggleReducer } from "@/ui/switch/useSwitch";
 import icon_avatar from "@/assets/bg/avatar_man.png";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const [isChecked, hasIsChecked] = React.useState(true);
@@ -196,26 +193,6 @@ export default function Home() {
         checked={isChecked}
         onChange={() => hasIsChecked((prev) => !prev)}
       />
-      <View direction={"column"} spacing={30}>
-        <Input label={"아이디"} />
-        <Input
-          label={"아이디"}
-          msg={{ type: "error", title: "아이디가 올바르지 않습니다요." }}
-        />
-        <Input.Password
-          label={"비밀번호"}
-          msg={{
-            type: "info",
-            title: "비밀번호를 아래와 같이 입력해주세요.",
-            desc: (
-              <StyledMessageDetail>
-                <li>영문 + 숫자 + 특수문자 9자리~20자리</li>
-                <li>연속된 문자열 3번 이상 연속해서 사용할 수 없어요</li>
-              </StyledMessageDetail>
-            ),
-          }}
-        />
-      </View>
       <BottomSheet
         open={openBottomSheet}
         onDismiss={() => setOpenBottomSheet(false)}

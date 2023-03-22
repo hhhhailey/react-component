@@ -1,3 +1,4 @@
+"use client";
 import { createContext } from "react";
 import { ModalOpenedContextProps } from "../../@types/modal";
 

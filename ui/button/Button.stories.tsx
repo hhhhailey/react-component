@@ -12,8 +12,7 @@ const ButtonTemplate: ComponentStory<typeof Button> = (args) => (
   <Button {...args}>{args.children}</Button>
 );
 const ButtonIconTemplate: ComponentStory<typeof ButtonIcon> = (args) => {
-  console.log(args, "aras");
-  return <Button {...args}>{args.children}</Button>;
+  return <ButtonIcon {...args}>{args.children}</ButtonIcon>;
 };
 
 export const Default = ButtonTemplate.bind({});
@@ -21,5 +20,5 @@ export const ButtonIconDefault = ButtonIconTemplate.bind({});
 Default.args = {};
 
 ButtonIconDefault.args = {
-  icon: { registered: "back" },
+  icon: { registered: "back", alt: "뒤로가기" },
 };

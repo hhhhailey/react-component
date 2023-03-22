@@ -1,18 +1,15 @@
 import React from "react";
-
-const ACTION_TYPE = {
-  toggle: "TOGGLE",
-  on: "ON",
-  off: "OFF",
+type ActionTypeUnion = "toggle" | "on" | "off";
+const ACTION_TYPE: { [type in ActionTypeUnion]: string } = {
+  toggle: "toggle",
+  on: "on",
+  off: "off",
 };
-
-type ActionTypeUnion = "TOGGLE" | "ON" | "OFF";
 interface StateProps {
   on: boolean;
 }
-
 interface ActionProps {
-  type: ActionTypeUnion;
+  type: ActionTypeUnion | any;
 }
 
 export function toggleReducer(state: StateProps, action: ActionProps) {

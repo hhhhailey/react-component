@@ -2,9 +2,7 @@ import React from "react";
 import Image from "next/image";
 import styled from "styled-components";
 import { ButtonProps } from "../../Button";
-import icon_avatar from "@/assets/bg/avatar_man.png";
-import ArrowBackIcon from "@/assets/icons/arrow-back.svg";
-import ClosedIcon from "@/assets/icons/closed.svg";
+import { mappingRegisteredIcon } from "../../constants";
 
 export interface ButtonIconProps extends ButtonProps {
   iconW?: number | string;
@@ -14,6 +12,8 @@ export interface ButtonIconProps extends ButtonProps {
     image?: any;
     svg?: React.ReactNode;
     registered?: ButtonRegisterUnion;
+    alt: string;
+    pos?: ButtonIconPositionUnion;
   };
   ratio?: {
     icon?: number;
@@ -30,25 +30,21 @@ function Icon({
   children,
   ...props
 }: ButtonIconProps) {
-  const mappingRegisteredIcon: any = {
-    back: <ArrowBackIcon />,
-    closed: <ClosedIcon />,
-  };
-
   /**
    * image: png, jpg...
    * svg: svg
    * registered: 미리 등록한 아이콘
    */
-  const printedIcon: React.ReactElement = React.useMemo(() => {
+  const printedIcon: React.ReactNode = React.useMemo(() => {
     if (!icon) return null;
     if (icon.image) {
-      return <Image src={icon.image} alt={"test"} placeholder="blur" />;
+      return <Image src={icon.image} alt={icon.alt} placeholder="blur" />;
     } else if (icon.svg) {
       return icon.svg;
     } else {
       if (!icon.registered) return null;
-      return mappingRegisteredIcon[icon.registered];
+      const RegisteredIcon = mappingRegisteredIcon[icon.registered];
+      return <RegisteredIcon />;
     }
   }, [icon]);
 
@@ -69,13 +65,23 @@ const StyledButtonIcon = styled.button<{
   w?: number | string;
   h?: number | string;
   block?: boolean;
+  pos?: ButtonIconPositionUnion;
 }>`
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: ${(p) => p.spacing}px;
 
+  background: inherit;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+  overflow: visible;
+  cursor: pointer;
+
   ${(p) => p.block && "width: 100% !important"};
+  ${(p) => p.pos === "suffix" && "flex-direction: row-reverse"};
 `;
 const StyledIcon = styled.div<{
   w?: number | string;
@@ -83,7 +89,7 @@ const StyledIcon = styled.div<{
   flex?: number;
 }>`
   ${(p) => p.flex && `flex: ${p.flex}`};
-  width: ${(p) => (typeof p.w === "number" ? p.w + "px" : p.w)};
+  max-width: ${(p) => (typeof p.w === "number" ? p.w + "px" : p.w)};
   height: ${(p) => (typeof p.h === "number" ? p.h + "px" : p.h)};
 
   & > img {

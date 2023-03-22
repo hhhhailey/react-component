@@ -41,10 +41,13 @@ input {
 }
 
 button {
-  background: transparent;
-  outline: none;
+  background: inherit;
   border: none;
-  color: inherit;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+  overflow: visible;
+  cursor: pointer;
 }
 
 img {

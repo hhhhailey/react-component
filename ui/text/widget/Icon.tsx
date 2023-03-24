@@ -60,14 +60,13 @@ export default function Text({ ...props }) {
   const { icon, ratio, children, ...rest }: TextProps = {
     size: "md",
     weight: "regular",
-    align: "center",
+    align: "flex-start",
     icon: {
       alt: "아이콘 이름",
     },
     ...props,
   };
 
-  console.log(props, "props");
   /**
    * image: png, jpg...
    * svg: svg

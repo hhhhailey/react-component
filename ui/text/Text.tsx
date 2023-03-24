@@ -25,11 +25,11 @@ export interface TextProps
   align?: TextAlignUnion;
   block?: boolean;
   eclipse?: number;
-  isWrap?: boolean;
   cursor?: string;
   underline?: boolean;
   children?: React.ReactNode;
   letterSpacing?: number;
+  dot?: boolean;
 }
 
 export default function Text({ ...props }) {
@@ -77,6 +77,11 @@ const StyledText = styled.div<TextProps>`
   ${(p) => p.cursor && `cursor: ${p.cursor}`};
   ${(p) => p.underline && "text-decoration: underline"};
   ${(p) => p.letterSpacing && `letter-spacing: ${p.letterSpacing}px`};
+  ${(p) =>
+    p.dot &&
+    `
+    padding-left: 10px;
+  `}
 
   ${(p) => {
     if (p.size === "xl") return FONT_SIZE_XL;
@@ -176,5 +181,14 @@ const StyledText = styled.div<TextProps>`
       -webkit-line-clamp: ${p.eclipse};
       -webkit-box-orient: vertical;
     `}
-  ${(p) => p.isWrap && `word-break: break-word;`}
+
+  ${(p) =>
+    p.dot &&
+    `
+      &::before {
+        content: '∙';
+        position: absolute;
+        left:0;
+      }
+    `}
 `;

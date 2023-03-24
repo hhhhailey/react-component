@@ -11,6 +11,12 @@ export default function Home() {
       <View spacing={16} direction={"column"} block>
         <Text size="xl">일반 텍스트입니다. XL</Text>
         <Text size="lg">일반 텍스트입니다. LG</Text>
+        <Text dot>교보라이프플래닛에서 보험정보를 확인해요</Text>
+        <Text dot>
+          주민등록번호는 암호화하여 관리하고 목적 달성 후 삭제해요
+          주민등록번호는 암호화하여 관리하고 목적 달성 후 삭제해요
+          주민등록번호는 암호화하여 관리하고 목적 달성 후 삭제해요
+        </Text>
         <Text.Icon
           spacing={8}
           size={"md"}

@@ -5,13 +5,12 @@ import { ButtonProps } from "../../Button";
 import { mappingRegisteredIcon } from "../../constants";
 
 export interface ButtonIconProps extends ButtonProps {
-  iconW?: number | string;
-  iconH?: number | string;
-
   icon: {
+    w?: number | string;
+    h?: number | string;
     image?: any;
     svg?: React.ReactNode;
-    registered?: ButtonRegisterUnion;
+    registered?: ButtonIconRegisterUnion;
     alt: string;
     pos?: ButtonIconPositionUnion;
   };
@@ -22,14 +21,7 @@ export interface ButtonIconProps extends ButtonProps {
   spacing?: number;
 }
 
-function Icon({
-  iconW,
-  iconH,
-  icon,
-  ratio,
-  children,
-  ...props
-}: ButtonIconProps) {
+function Icon({ icon, ratio, children, ...props }: ButtonIconProps) {
   /**
    * image: png, jpg...
    * svg: svg
@@ -49,18 +41,18 @@ function Icon({
   }, [icon]);
 
   return (
-    <StyledButtonIcon {...props}>
-      <StyledIcon w={iconW} h={iconH} flex={ratio?.icon}>
+    <StyledWrap {...props}>
+      <StyledIcon w={icon.w} h={icon.h} flex={ratio?.icon}>
         {printedIcon}
       </StyledIcon>
       {children && <StyledText flex={ratio?.text}>{children}</StyledText>}
-    </StyledButtonIcon>
+    </StyledWrap>
   );
 }
 
 export default Icon;
 
-const StyledButtonIcon = styled.button<{
+const StyledWrap = styled.button<{
   spacing?: number;
   w?: number | string;
   h?: number | string;

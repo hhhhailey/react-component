@@ -11,5 +11,5 @@ export type TextAlignUnion =
   | "inherit"
   | "initial"
   | "unset";
-export type TextPositionIconUnion = "prefix" | "suffix";
-export type TextRegisteredIconUnion = "exclamation";
+export type TextIconPositionUnion = "prefix" | "suffix";
+export type TextIconRegisteredUnion = "exclamation";

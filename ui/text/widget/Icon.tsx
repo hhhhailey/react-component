@@ -1,3 +1,5 @@
+import React from "react";
+import Image from "next/image";
 import styled, { css } from "styled-components";
 import { AllColorUnion } from "@/ui/@types/colors";
 import {
@@ -6,11 +8,12 @@ import {
   SpacingProps,
 } from "@/ui/@types/spacing";
 import {
-  TextAlignUnion,
+  TextIconRegisteredUnion,
   TextSizeUnion,
   TextWeightUnion,
 } from "@/ui/@types/text";
-import Icon from "./widget/Icon";
+import { mappingRegisteredIcon } from "../constants";
+import { FlexAlignUnion } from "@/ui/@types/common";
 
 export interface TextProps
   extends React.HTMLAttributes<HTMLDivElement>,
@@ -22,28 +25,76 @@ export interface TextProps
   w?: number;
   h?: number;
   weight?: TextWeightUnion;
-  align?: TextAlignUnion;
+  align?: FlexAlignUnion;
   block?: boolean;
   eclipse?: number;
-  isWrap?: boolean;
+  spacing?: number;
   cursor?: string;
   underline?: boolean;
   children?: React.ReactNode;
   letterSpacing?: number;
+  icon: {
+    w?: number | string;
+    h?: number | string;
+    image?: any;
+    svg?: React.ReactNode;
+    registered?: TextIconRegisteredUnion;
+    alt: string;
+    pos?: ButtonIconPositionUnion;
+  };
+  ratio?: {
+    icon?: number;
+    text?: number;
+  };
 }
+
+export interface TextWrapStyledProps
+  extends Omit<TextProps, "size" | "icon" | "color"> {}
+export interface TextStyledProps
+  extends Pick<
+    TextProps,
+    "size" | "margin" | "weight" | "padding" | "eclipse" | "letterSpacing"
+  > {}
 
 export default function Text({ ...props }) {
-  const { children, ...rest }: TextProps = {
+  const { icon, ratio, children, ...rest }: TextProps = {
     size: "md",
     weight: "regular",
-    align: "left",
+    align: "center",
+    icon: {
+      alt: "아이콘 이름",
+    },
     ...props,
   };
-  // eslint-disable-next-line react/react-in-jsx-scope
-  return <StyledText {...rest}>{children}</StyledText>;
-}
 
-Text.Icon = Icon;
+  console.log(props, "props");
+  /**
+   * image: png, jpg...
+   * svg: svg
+   * registered: 미리 등록한 아이콘
+   */
+  const printedIcon: React.ReactNode = React.useMemo(() => {
+    if (!icon) return null;
+    if (icon.image) {
+      return <Image src={icon.image} alt={icon.alt} placeholder="blur" />;
+    } else if (icon.svg) {
+      return icon.svg;
+    } else {
+      if (!icon.registered) return null;
+      const RegisteredIcon = mappingRegisteredIcon[icon.registered];
+      return <RegisteredIcon />;
+    }
+  }, [icon]);
+  // eslint-disable-next-line react/react-in-jsx-scope
+  return (
+    <StyledWrap {...props}>
+      <StyledIcon w={icon.w} h={icon.h} flex={ratio?.icon}>
+        {printedIcon}
+      </StyledIcon>
+      <StyledText {...rest}>{children}</StyledText>
+    </StyledWrap>
+  );
+}
 
 const FONT_SIZE_XL = css({
   fontSize: "16px !important",
@@ -66,16 +117,35 @@ const FONT_WEIGHT_REGULAR = css({ fontWeight: 400 });
 const FONT_WEIGHT_MEDIUM = css({ fontWeight: 500 });
 const FONT_WEIGHT_BOLD = css({ fontWeight: 700 });
 
-const StyledText = styled.div<TextProps>`
-  display: ${(p) => (p.block ? "block" : "inline-block")};
+const StyledWrap = styled.div<TextWrapStyledProps>`
+  display: flex;
+  align-items: ${(p) => p.align};
+  gap: ${(p) => p.spacing}px;
   ${(p) => p.flex && `flex: ${p.flex}`};
   ${(p) => p.basis && `flex-basis: ${p.basis}px`};
   ${(p) => p.w && `width: ${p.w}px`};
   ${(p) => p.block && `width: 100%`};
   text-align: ${(p) => p.align} !important;
-  ${(p) => p.color && `color: var(--${p.color})`};
+
   ${(p) => p.cursor && `cursor: ${p.cursor}`};
   ${(p) => p.underline && "text-decoration: underline"};
+`;
+const StyledIcon = styled.div<{
+  w?: number | string;
+  h?: number | string;
+  flex?: number;
+}>`
+  ${(p) => p.flex && `flex: ${p.flex}`};
+  max-width: ${(p) => (typeof p.w === "number" ? p.w + "px" : p.w)};
+  height: ${(p) => (typeof p.h === "number" ? p.h + "px" : p.h)};
+
+  & > img {
+    object-fit: contain;
+  }
+`;
+
+const StyledText = styled.div<TextStyledProps>`
+  ${(p) => p.color && `color: var(--${p.color})`};
   ${(p) => p.letterSpacing && `letter-spacing: ${p.letterSpacing}px`};
 
   ${(p) => {
@@ -176,5 +246,4 @@ const StyledText = styled.div<TextProps>`
       -webkit-line-clamp: ${p.eclipse};
       -webkit-box-orient: vertical;
     `}
-  ${(p) => p.isWrap && `word-break: break-word;`}
 `;

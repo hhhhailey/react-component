@@ -3,6 +3,11 @@ import React from "react";
 import { HTMLAttributes } from "react";
 import styled from "styled-components";
 import { BorderProps, BorderUnion } from "../@types/border";
+import {
+  FlexAlignUnion,
+  FlexDirection,
+  FlexJustifyUnion,
+} from "../@types/common";
 import { CursorUnion } from "../@types/cursor";
 import { RadiusProps, RadiusUnion } from "../@types/radius";
 import {
@@ -18,29 +23,9 @@ export interface ViewProps
     RadiusProps {
   flex?: number;
   flexBasis?: number;
-  direction?: "row" | "column";
-  justify?:
-    | "baseline"
-    | "center"
-    | "end"
-    | "first baseline"
-    | "flex-end"
-    | "flex-start"
-    | "last baseline"
-    | "left"
-    | "right"
-    | "safe"
-    | "space-around"
-    | "space-between";
-  align?:
-    | "baseline"
-    | "center"
-    | "flex-end"
-    | "flex-start"
-    | "stretch"
-    | "inherit"
-    | "initial"
-    | "unset";
+  direction?: FlexDirection;
+  justify?: FlexJustifyUnion;
+  align?: FlexAlignUnion;
   spacing?: number;
   cursor?: CursorUnion;
   w?: number | string;

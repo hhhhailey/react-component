@@ -1,11 +1,21 @@
 import { ModalProps } from "@/ui/@types/modal";
-import { Button } from "antd";
 import React from "react";
 import styled from "styled-components";
 import CloseIcon from "@/assets/icons/closed.svg";
+import Button from "@/ui/button/Button";
 
 const ConfirmModal: React.FC<ModalProps> = React.forwardRef(
   ({ ...props }, ref) => {
+    const hasFooter = React.useMemo(
+      () =>
+        props.hasBtnCancel || props.hasBtnConfirm || props.hasBtnSubmit
+          ? true
+          : false,
+      [props.hasBtnCancel, props.hasBtnConfirm, props.hasBtnSubmit]
+    );
+    console.log(props.hasBtnCancel, "cancel");
+    console.log(hasFooter, "hasFooter");
+
     const closeModal = () => {
       props.onClose && props.onClose();
     };
@@ -29,7 +39,7 @@ const ConfirmModal: React.FC<ModalProps> = React.forwardRef(
         {props.title && <StyledTitle>{props.title}</StyledTitle>}
         {props.desc && <StyledDesc>{props.desc}</StyledDesc>}
         {props.content && props.content}
-        <StyledFooter>
+        <StyledFooter show={hasFooter}>
           {props.onClose && props.hasBtnCancel && (
             <Button block onClick={closeModal}>
               취소
@@ -57,7 +67,7 @@ ConfirmModal.displayName = "ConfirmModal";
 ConfirmModal.defaultProps = {
   closeable: true,
   hasBtnCancel: true,
-  hasBtnConfirm: true,
+  hasBtnConfirm: false,
   hasBtnSubmit: false,
 };
 
@@ -70,7 +80,7 @@ const StyledConfirmModal = styled.div`
   }
 `;
 const StyledHeader = styled.div``;
-const StyledFooter = styled.div`
+const StyledFooter = styled.div<{ show?: boolean }>`
   /* position: absolute;
   left: 0;
   bottom: 0; */
@@ -79,7 +89,7 @@ const StyledFooter = styled.div`
   align-items: flex-end;
   flex: 1;
   gap: 8px;
-  height: 52px;
+  height: ${(p) => (p.show ? 52 : 0)}px;
 `;
 
 const StyledTitle = styled.div``;

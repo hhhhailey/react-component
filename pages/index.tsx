@@ -4,11 +4,42 @@ import ArrowBack from "@/assets/icons/arrow-back.svg";
 import avatar_man from "@/assets/bg/avatar_man.png";
 import { View } from "@/ui";
 import Text from "@/ui/text/Text";
+import useModal from "@/ui/modal/useModal";
+import { modals } from "@/ui/modal/setting/Modals";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
 
 export default function Home() {
+  const { openModal } = useModal();
   return (
     <View direction={"column"} padding={["p-4"]} block>
       <View spacing={16} direction={"column"} block>
+        <Button
+          onClick={() =>
+            openModal(modals.confirm, {
+              hasBtnCancel: false,
+              content: <Calendar />,
+            })
+          }
+        >
+          달력 바텀시트
+        </Button>
+
+        <Button
+          onClick={() =>
+            openModal(modals.pages, {
+              pages: [<div>dkdk</div>, <div>d2kdk</div>, <div>dk2dk</div>],
+              hasBtnCancel: true,
+              pageFooterBtns: [
+                <Button>다음</Button>,
+                <Button>다음</Button>,
+                <Button>다음</Button>,
+              ],
+            })
+          }
+        >
+          모달 바텀시트 (page)
+        </Button>
         <Text size="xl">일반 텍스트입니다. XL</Text>
         <Text size="lg">일반 텍스트입니다. LG</Text>
         <Text dot>교보라이프플래닛에서 보험정보를 확인해요</Text>
